@@ -10,13 +10,15 @@ public class Tag
     
     public string Description { get; set; }
 
-    public bool isDeleted { get; set; } = false;
+    public bool IsDeleted { get; set; } = false;
+
+    public Tag() { }
 
     public Tag(string name, string ioAddress, string description)
     {
         Name = name;
         IOAddress = ioAddress;
         Description = description;
-        isDeleted = false;
+        IsDeleted = false;
     }
 }

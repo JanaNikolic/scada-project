@@ -10,6 +10,8 @@ public class AnalogOutput : Tag
 
     public string Units { get; set; }
 
+    public AnalogOutput() { }
+
     public AnalogOutput(string name, string ioAddress, string description, double initialValue, double lowLimit, double highLimit, string units) : base(name, ioAddress, description)
     {
         InitialValue = initialValue;
