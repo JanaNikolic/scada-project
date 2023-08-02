@@ -4,7 +4,7 @@ namespace SCADA.Model;
 
 public class TagRecord
 {
-    [Key]
+    // [Key]
     public int Id { get; set; }
     public Tag Tag { get; set; }
 

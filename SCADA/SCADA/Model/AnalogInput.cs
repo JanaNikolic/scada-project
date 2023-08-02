@@ -16,6 +16,10 @@ public class AnalogInput : Tag
 
     public string Units { get; set; }
 
+    public AnalogInput() { }
+
+    public AnalogInput(string name, string ioAddress, string description) : base(name, ioAddress, description) { }
+
     public AnalogInput(string name, string ioAddress, string description, string driver, double scanTime, bool isScanOn, double lowLimit, double highLimit, string units) : base(name, ioAddress, description)
     {
         Driver = driver;

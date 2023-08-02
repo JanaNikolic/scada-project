@@ -8,6 +8,7 @@ public class DigitalInput : Tag
 
     public bool IsScanOn { get; set; }
 
+    public DigitalInput() {}
     public DigitalInput(string name, string ioAddress, string description, string driver, double scanTime, bool isScanOn) : base(name, ioAddress, description)
     {
         Driver = driver;

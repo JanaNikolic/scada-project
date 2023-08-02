@@ -1,8 +1,26 @@
+using Microsoft.EntityFrameworkCore;
+using SCADA.Data;
+using SCADA.Repository;
+using SCADA.Repository.IRepository;
+using SCADA.Service;
+using SCADA.Service.IService;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+var connectionString = builder.Configuration.GetConnectionString("MyDbContextConnection");
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<IAlarmRepository, AlarmRepository>();
+
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 var app = builder.Build();
 
