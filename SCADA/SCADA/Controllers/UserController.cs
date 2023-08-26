@@ -1,9 +1,7 @@
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SCADA.DTOS;
 using SCADA.Model;
-using SCADA.Service;
+using SCADA.Service.IService;
 
 namespace SCADA.Controllers;
 
@@ -12,10 +10,10 @@ namespace SCADA.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly UserService _userService;
+    private readonly IUserService _userService;
     private readonly ILogger<UserController> _logger;
 
-    public UserController(ILogger<UserController> logger, UserService userService)
+    public UserController(ILogger<UserController> logger, IUserService userService)
     {
         _logger = logger;
         _userService = userService;

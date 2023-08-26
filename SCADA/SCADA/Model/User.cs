@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SCADA.Model;
 
@@ -8,6 +9,7 @@ public class User
     public int Id { get; set; }
     public String Email { get; set; }
     public String Password { get; set; }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public UserRole Role { get; set; }
 
 
