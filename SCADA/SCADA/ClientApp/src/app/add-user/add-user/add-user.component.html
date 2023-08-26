@@ -1,0 +1,21 @@
+<h1>Add user</h1>
+
+<form (ngSubmit)="registerUser()" [formGroup]="registerForm">
+  <div class="row">
+      <div class="input-box form">
+        <span class="details">Email</span>
+        <input type="text" placeholder="pera@peric.com" formControlName="email">
+    </div>
+  </div>
+  <div class="row">
+      <div class="input-box form">
+        <span class="details">Password</span>
+        <input type="text" placeholder="Password" formControlName="password">
+    </div>
+  </div>
+  <div class="row">
+    <div class="button">
+      <input type="submit" value="Add user">
+    </div>
+  </div>
+</form>
