@@ -9,6 +9,7 @@ public class Tag
     public string IOAddress { get; set; }
     
     public string Description { get; set; }
+    public double Value { get; set; }
 
     public bool IsDeleted { get; set; } = false;
 
