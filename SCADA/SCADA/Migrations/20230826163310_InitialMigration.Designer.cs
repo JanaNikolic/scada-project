@@ -12,7 +12,7 @@ using SCADA.Data;
 namespace SCADA.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230801224120_InitialMigration")]
+    [Migration("20230826163310_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />

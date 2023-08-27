@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-// import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-user',
@@ -16,7 +16,7 @@ export class AddUserComponent {
   });
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string
-              // , private snackBar: MatSnackBar
+               , private snackBar: MatSnackBar
   ) {
   }
 
@@ -28,11 +28,11 @@ export class AddUserComponent {
         (result: any) => {
           console.log(result);
           this.registerForm.reset();
-          // this.snackBar.open('Added user successfully!', "", {duration: 2000});
+          this.snackBar.open('Added user successfully!', "", {duration: 2000});
         },
         (error: any) => {
           console.error(error);
-          // this.snackBar.open('Something went wrong, try again!', "", {duration: 2000});
+          this.snackBar.open('Something went wrong, try again!', "", {duration: 2000});
         }
       );
     }

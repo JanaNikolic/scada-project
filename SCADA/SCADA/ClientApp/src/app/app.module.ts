@@ -8,7 +8,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import {AddUserComponent} from "./add-user/add-user/add-user.component";
-// import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -23,13 +24,14 @@ import {AddUserComponent} from "./add-user/add-user/add-user.component";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    // MatSnackBarModule,
+    MatSnackBarModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'add-user', component: AddUserComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'login', component: FetchDataComponent },
-    ])
+    ]),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
