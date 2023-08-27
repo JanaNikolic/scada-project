@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using SCADA.Data;
+using SCADA.DTOS;
 using SCADA.Model;
 using SCADA.Repository.IRepository;
+using System.Data.Entity;
+using System.Net;
 
 namespace SCADA.Repository;
 
@@ -29,7 +32,7 @@ public class TagRepository : ITagRepository
 
     public List<AnalogInput> GetAnalogInputs()
     {
-        return _dataContext.AnalogInputs.Include(ai => ai.Alarms).ToList();
+        return _dataContext.AnalogInputs.ToList();
     }
 
     public List<AnalogOutput> GetAnalogOutputs()
@@ -45,5 +48,45 @@ public class TagRepository : ITagRepository
     public List<DigitalOutput> GetDigitalOutputs()
     {
         return _dataContext.DigitalOutputs.ToList();
+    }
+
+    public AnalogInput AddAnalogInputTag(AnalogInput value)
+    {
+        _dataContext.AnalogInputs.Add(value);
+        _dataContext.SaveChanges();
+        return value;
+    }
+
+    public AnalogOutput AddAnalogOutputTag(AnalogOutput value)
+    {
+        _dataContext.AnalogOutputs.Add(value);
+        _dataContext.SaveChanges();
+        return value;
+    }
+
+    public DigitalInput AddDigitalInputTag(DigitalInput value)
+    {
+        _dataContext.DigitalInputs.Add(value);
+        _dataContext.SaveChanges();
+        return value;
+    }
+
+    public DigitalOutput AddDigitalOutputTag(DigitalOutput value)
+    {
+        _dataContext.DigitalOutputs.Add(value);
+        _dataContext.SaveChanges();
+        return value;
+    }
+
+    public void RemoveTag(Tag tag)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddOutputValue(OutputDTO value)
+    {
+        Tag tag = GetAll().Find(a => a.IOAddress == value.IOAddress);
+        tag.Value = value.Value;
+        _dataContext.SaveChanges();
     }
 }
