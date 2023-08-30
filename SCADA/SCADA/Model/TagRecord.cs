@@ -12,14 +12,14 @@ public class TagRecord
 
     public DateTime Timestamp { get; set; }
 
-    public float Value { get; set; }
+    public double Value { get; set; }
 
     public string IOAddress { get; set; }
 
 
     public TagRecord() { }
 
-    public TagRecord(Tag tag, float value, string address)
+    public TagRecord(Tag tag, double value, string address)
     {
         TagId = tag.Id;
         Tag = tag;
