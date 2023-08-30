@@ -1,20 +1,27 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SCADA.DTOS;
+using SCADA.Hubs;
+using SCADA.Hubs.IHubs;
 using SCADA.Model;
 using SCADA.Repository.IRepository;
-using static SCADA.Model.Alarm;
+using SCADA.Service.IService;
 
 namespace SCADA.Service
 {
-    public class TagService
+    public class TagService : ITagService
     {
         private readonly ITagRepository _tagRepository;
         private readonly IServiceScopeFactory _serviceScope;
+        private readonly IHubContext<RTUHubClient, IRTUHubClient> _rtHubContext;
+        private readonly IHubContext<SimulationHubClient, ISimulationHubClient> _simulationHubContext;
 
-        public TagService(ITagRepository tagRepository, IServiceScopeFactory serviceScope)
+        public TagService(ITagRepository tagRepository, IServiceScopeFactory serviceScope, IHubContext<RTUHubClient, IRTUHubClient> rtHubContext,
+         IHubContext<SimulationHubClient, ISimulationHubClient> simulationHubContext)
         {
             _tagRepository = tagRepository;
             _serviceScope = serviceScope;
+            _rtHubContext = rtHubContext;
+            _simulationHubContext = simulationHubContext;
         }
 
         public void AddTag(TagDTO dto)

@@ -83,10 +83,42 @@ public class TagRepository : ITagRepository
         throw new NotImplementedException();
     }
 
+    public List<Tag> GetInputs()
+    {
+        List<Tag> tags = new List<Tag>();
+        tags.AddRange(GetAnalogInputs());
+        tags.AddRange(GetDigitalInputs());
+        return tags;
+    }
+
     public void AddOutputValue(OutputDTO value)
     {
         Tag tag = GetAll().Find(a => a.IOAddress == value.IOAddress);
         tag.Value = value.Value;
+        _dataContext.SaveChanges();
+    }
+
+    public async Task<List<Tag>> GetInputsAsync()
+    {
+        return await Task.Run(() =>
+        {
+            List<Tag> allTags = new List<Tag>();
+            allTags.AddRange(GetAnalogInputs().Cast<Tag>());
+            allTags.AddRange(GetDigitalInputs().Cast<Tag>());
+
+            return allTags;
+        });
+    }
+
+    public async Task<Tag?> GetInputByAddress(string address)
+    {
+        List<Tag> allTags = await GetInputsAsync();
+        return allTags.FirstOrDefault(t => t.IOAddress == address);
+    }
+
+    public void AddTagRecord(TagRecord tagRecord)
+    {
+        _dataContext.TagRecords.Add(tagRecord);
         _dataContext.SaveChanges();
     }
 }

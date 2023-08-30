@@ -9,7 +9,7 @@ public class RTUHubClient : Hub<IRTUHubClient>
     {
     }
 
-    public async Task SendRTUData(string data)
+    public async Task SendRTUData(object data)
     {
         await Clients.All.SendRTUData(data);
     }

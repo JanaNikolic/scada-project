@@ -21,6 +21,7 @@ namespace SCADA.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     IOAddress = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<double>(type: "double precision", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     Discriminator = table.Column<string>(type: "text", nullable: false),
                     AnalogInput_Driver = table.Column<string>(type: "text", nullable: true),
@@ -36,7 +37,7 @@ namespace SCADA.Migrations
                     Driver = table.Column<string>(type: "text", nullable: true),
                     ScanTime = table.Column<double>(type: "double precision", nullable: true),
                     IsScanOn = table.Column<bool>(type: "boolean", nullable: true),
-                    InitialValue = table.Column<bool>(type: "boolean", nullable: true)
+                    InitialValue = table.Column<double>(type: "double precision", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -89,7 +90,7 @@ namespace SCADA.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     TagId = table.Column<int>(type: "integer", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Value = table.Column<float>(type: "real", nullable: false),
+                    Value = table.Column<double>(type: "double precision", nullable: false),
                     IOAddress = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>

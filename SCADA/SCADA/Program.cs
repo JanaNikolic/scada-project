@@ -24,6 +24,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddSignalR();
 
+builder.Services.AddHostedService<SimulationService>();
+builder.Services.AddHostedService<RTU>();
 
 var app = builder.Build();
 

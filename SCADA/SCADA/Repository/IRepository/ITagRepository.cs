@@ -17,5 +17,8 @@ public interface ITagRepository
     public DigitalOutput AddDigitalOutputTag(DigitalOutput digitalOutput);
     public void AddOutputValue(OutputDTO value);
     public void RemoveTag(Tag tag);
-    
+    public List<Tag> GetInputs();
+    public Task<List<Tag>> GetInputsAsync();
+    public Task<Tag?> GetInputByAddress(string address);
+    public void AddTagRecord(TagRecord tagRecord);
 }
