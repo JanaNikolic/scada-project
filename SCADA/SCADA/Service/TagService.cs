@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Azure;
+using Microsoft.AspNetCore.SignalR;
 using SCADA.DTOS;
 using SCADA.Model;
 using SCADA.Repository.IRepository;
+using SCADA.Service.IService;
 using static SCADA.Model.Alarm;
 
 namespace SCADA.Service
 {
-    public class TagService
+    public class TagService : ITagService
     {
         private readonly ITagRepository _tagRepository;
         private readonly IServiceScopeFactory _serviceScope;
@@ -128,8 +130,8 @@ namespace SCADA.Service
         public InputListDTO GetInputTags()
         {
             InputListDTO inputsDTO = new InputListDTO();
-            inputsDTO.AnalogInputList = _tagRepository.GetAnalogInputs().OrderBy(x => int.Parse(x.IOAddress)).ToList();
-            inputsDTO.DigitalInputList = _tagRepository.GetDigitalInputs().OrderBy(x => int.Parse(x.IOAddress)).ToList();
+            inputsDTO.AnalogInputList = _tagRepository.GetAnalogInputs().ToList();
+            inputsDTO.DigitalInputList = _tagRepository.GetDigitalInputs().ToList();
             return inputsDTO;
         }
 
@@ -155,6 +157,31 @@ namespace SCADA.Service
         public Tag? GetByAddress(string address)
         {
             return _tagRepository.GetAll().Find(a => a.IOAddress == address);
+        }
+
+        public void UpdateScanStatus(int id)
+        {
+            try
+            {
+                Tag? tag = _tagRepository.GetById(id);
+
+                if (tag is DigitalInput digitalInput)
+                {
+                    _tagRepository.UpdateDigitalInputScan(id);
+                }
+                else if (tag is AnalogInput analogInput) 
+                { 
+                    _tagRepository.UpdateAnalogInputScan(id);
+                }
+                else
+                {
+                    throw new Exception("This Address doesn't exist");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Scan couldn't be toggled");
+            }
         }
     }
 }
