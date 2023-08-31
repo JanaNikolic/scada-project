@@ -50,6 +50,7 @@ namespace SCADA.Service
             {
                 IOAddress = dto.IOAddress,
                 Description = dto.Description,
+                Driver = dto.Driver,
                 Name = dto.Name,
                 Value = -1,
                 HighLimit = (double)dto.HighLimit,
@@ -92,6 +93,7 @@ namespace SCADA.Service
                 IOAddress = dto.IOAddress,
                 Description = dto.Description,
                 Name = dto.Name,
+                Driver = dto.Driver,
                 Value = -1,
                 ScanTime = (int)dto.ScanTime,
                 IsScanOn = (bool)dto.IsScanOn

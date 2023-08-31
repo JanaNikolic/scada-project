@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AnalogOutputsComponent } from './analog-outputs/analog-outputs.component';
 import { OutputDialogComponent } from './dialogs/output-dialog/output-dialog.component';
 import { InputDialogComponent } from './dialogs/input-dialog/input-dialog/input-dialog.component';
+import { ValueDialogComponent } from './dialogs/value-dialog/value-dialog/value-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { InputDialogComponent } from './dialogs/input-dialog/input-dialog/input-
     AnalogInputsComponent,
     AnalogOutputsComponent,
     OutputDialogComponent,
-    InputDialogComponent
+    InputDialogComponent,
+    ValueDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

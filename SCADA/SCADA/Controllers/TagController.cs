@@ -18,7 +18,7 @@ namespace SCADA.Controllers
             _tagService = tagService;
         }
         [IgnoreAntiforgeryToken]
-        [HttpGet]
+        [HttpGet("input")]
         public IActionResult GetInputs()
         {
             return Ok(_tagService.GetInputTags());
@@ -31,7 +31,7 @@ namespace SCADA.Controllers
         }
 
         [IgnoreAntiforgeryToken]
-        [HttpPost("analoginput")]
+        [HttpPost]
         public IActionResult AddTag([FromBody] TagDTO input)
         {
             try
@@ -78,7 +78,7 @@ namespace SCADA.Controllers
         }
 
         [IgnoreAntiforgeryToken]
-        [HttpPut("{id}")]
+        [HttpGet("{id}")]
         public IActionResult UpdateScanStatus(int id)
         {
             try

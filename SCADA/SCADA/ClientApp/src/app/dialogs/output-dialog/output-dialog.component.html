@@ -59,7 +59,7 @@
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button type="submit" [disabled]="!isFormValid()">
+    <button mat-button type="submit" [disabled]="!isFormValid()" (click)="addTag()">
         Submit
     </button>
     <button mat-button (click)="closeDialog()">Close</button>

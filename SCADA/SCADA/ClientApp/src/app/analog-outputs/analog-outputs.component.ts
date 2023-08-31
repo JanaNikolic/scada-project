@@ -8,6 +8,7 @@ import { AnalogOutput } from '../model/AnalogOutput';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { OutputDialogComponent } from '../dialogs/output-dialog/output-dialog.component';
+import { ValueDialogComponent } from '../dialogs/value-dialog/value-dialog/value-dialog.component';
 
 @Component({
   selector: 'app-analog-outputs',
@@ -15,7 +16,7 @@ import { OutputDialogComponent } from '../dialogs/output-dialog/output-dialog.co
   styleUrls: ['./analog-outputs.component.css']
 })
 export class AnalogOutputsComponent {
-  displayedColumns: string[] = ['select', 'Id', 'Description', 'I/O Address', 'Initial value', 'Low limit', 'High limit', 'Units', 'Current Value'];
+  displayedColumns: string[] = ['select', 'Id', 'Description', 'I/O Address', 'Initial value', 'Low limit', 'High limit', 'Units', 'Current Value', 'Edit'];
   dataSource = new MatTableDataSource<AnalogOutput>();
   selection = new SelectionModel<AnalogOutput>(true, []);
 
@@ -24,7 +25,10 @@ export class AnalogOutputsComponent {
   @ViewChild('paginator') paginator!: MatPaginator;
 
   ngOnInit() {
+    this.fetchData();
+  }
 
+  fetchData() {
     this.tagService.getOutputTags().subscribe({
       next: (res) => {
         console.log(res);
@@ -34,7 +38,6 @@ export class AnalogOutputsComponent {
       },
     });
   }
-
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -56,7 +59,7 @@ export class AnalogOutputsComponent {
 
     dialogRef = this.matDialog.open(OutputDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(() => {
-      
+      this.fetchData();
     });
   }
 
@@ -84,5 +87,18 @@ export class AnalogOutputsComponent {
         }
       });
     })
+  }
+
+  openEdit(ioAddress: string) {
+    let dialogRef: MatDialogRef<ValueDialogComponent>;
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "300px";
+    dialogConfig.data = ioAddress;
+
+    dialogRef = this.matDialog.open(ValueDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(() => {
+      this.fetchData();
+    });
   }
 }

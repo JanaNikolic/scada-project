@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { InputDialogComponent } from '../dialogs/input-dialog/input-dialog/input-dialog.component';
 import { OutputDialogComponent } from '../dialogs/output-dialog/output-dialog.component';
+import { ValueDialogComponent } from '../dialogs/value-dialog/value-dialog/value-dialog.component';
 
 
 @Component({
@@ -88,4 +89,24 @@ export class AnalogInputsComponent {
       });
     })
   }
+
+  toggleScan(id: number) {
+    this.tagService.toggleScan(id).subscribe({
+      next: (res) => {
+        this.snackBar.open("Successful", 'Close', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        });
+      },
+      error:(error)=>{
+        this.snackBar.open('Toggle was unsuccessful', 'Close', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        });
+      }
+    });
+  }
+
 }

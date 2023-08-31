@@ -67,6 +67,7 @@
         [checked]="element.isScanOn"
         color="primary"
         (click)="$event.stopPropagation()"
+        (change)="toggleScan(element.id)"
       ></mat-slide-toggle>
     </td>
   </ng-container>
