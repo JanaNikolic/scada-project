@@ -53,7 +53,7 @@ public class UserController : ControllerBase
             var login = _userService.Login(user.Email, user.Password);
             if (login == null)
                 return BadRequest("Invalid credentials!");
-            return Ok();
+            return Ok(login);
         }catch (Exception ex)
         {
             return BadRequest(ex.Message);

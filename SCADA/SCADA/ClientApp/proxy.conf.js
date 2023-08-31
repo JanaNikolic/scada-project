@@ -28,6 +28,28 @@ const PROXY_CONFIG = [
   },
   {
     context: [
+      "/login",
+    ],
+    proxyTimeout: 10000,
+    target: target,
+    secure: false,
+    headers: {
+      Connection: 'Keep-Alive'
+    }
+  },
+  {
+    context: [
+      "/tag",
+    ],
+    proxyTimeout: 10000,
+    target: target,
+    secure: false,
+    headers: {
+      Connection: 'Keep-Alive'
+    }
+  },
+  {
+    context: [
       "/alarm",
     ],
     proxyTimeout: 10000,
@@ -38,5 +60,4 @@ const PROXY_CONFIG = [
     }
   }
 ]
-
 module.exports = PROXY_CONFIG;

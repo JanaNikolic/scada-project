@@ -80,7 +80,15 @@ public class TagRepository : ITagRepository
 
     public void RemoveTag(Tag tag)
     {
-        throw new NotImplementedException();
+        if (tag is AnalogInput analogInput)
+        {
+            foreach (var alarm in analogInput.Alarms)
+            {
+                _dataContext.Entry(alarm).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            }
+        }
+        _dataContext.Entry(tag).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+        _dataContext.SaveChanges();
     }
 
     public List<Tag> GetInputs()
@@ -96,6 +104,23 @@ public class TagRepository : ITagRepository
         Tag tag = GetAll().Find(a => a.IOAddress == value.IOAddress);
         tag.Value = value.Value;
         _dataContext.SaveChanges();
+    }
+
+
+    public AnalogInput UpdateAnalogInputScan(int id)
+    {
+        AnalogInput analogInput = _dataContext.AnalogInputs.Find(id);
+        analogInput.IsScanOn = !analogInput.IsScanOn;
+        _dataContext.SaveChanges();
+        return analogInput;
+    }
+
+    public DigitalInput UpdateDigitalInputScan(int id)
+    {
+        DigitalInput digitalInput = _dataContext.DigitalInputs.Find(id);
+        digitalInput.IsScanOn = !digitalInput.IsScanOn;
+        _dataContext.SaveChanges();
+        return digitalInput;
     }
 
     public async Task<List<Tag>> GetInputsAsync()
