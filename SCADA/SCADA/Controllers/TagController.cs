@@ -7,8 +7,8 @@ using SCADA.Service.IService;
 namespace SCADA.Controllers
 {
 
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class TagController : ControllerBase
     {
         private readonly ITagService _tagService;
@@ -17,7 +17,7 @@ namespace SCADA.Controllers
         {
             _tagService = tagService;
         }
-
+        [IgnoreAntiforgeryToken]
         [HttpGet("input")]
         public IActionResult GetInputs()
         {
@@ -31,7 +31,7 @@ namespace SCADA.Controllers
         }
 
         [IgnoreAntiforgeryToken]
-        [HttpPost("analoginput")]
+        [HttpPost]
         public IActionResult AddTag([FromBody] TagDTO input)
         {
             try
@@ -49,7 +49,7 @@ namespace SCADA.Controllers
 
         [IgnoreAntiforgeryToken]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteTag(int id)
         {
             try
             {
@@ -62,6 +62,7 @@ namespace SCADA.Controllers
             }
         }
 
+        [HttpPost("add-output")]
         public IActionResult AddOutputValue([FromBody] OutputDTO outputDTO)
         {
             try
@@ -76,6 +77,20 @@ namespace SCADA.Controllers
 
         }
 
+        [IgnoreAntiforgeryToken]
+        [HttpGet("{id}")]
+        public IActionResult UpdateScanStatus(int id)
+        {
+            try
+            {
+                _tagService.UpdateScanStatus(id);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
 

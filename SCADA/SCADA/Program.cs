@@ -21,6 +21,7 @@ builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IAlarmRepository, AlarmRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITagService, TagService>();
 
 builder.Services.AddSignalR();
 

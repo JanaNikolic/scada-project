@@ -10,5 +10,6 @@ namespace SCADA.Service.IService
         public void AddTag(TagDTO tagDTO);
         public void AddOutputValue(OutputDTO dto);
         public void RemoveTag(int id);
+        public void UpdateScanStatus(int id);
     }
 }
