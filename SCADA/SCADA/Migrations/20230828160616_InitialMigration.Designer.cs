@@ -12,7 +12,7 @@ using SCADA.Data;
 namespace SCADA.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230826163310_InitialMigration")]
+    [Migration("20230828160616_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -103,6 +103,9 @@ namespace SCADA.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<double>("Value")
+                        .HasColumnType("double precision");
+
                     b.HasKey("Id");
 
                     b.ToTable("Tag");
@@ -130,8 +133,8 @@ namespace SCADA.Migrations
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<float>("Value")
-                        .HasColumnType("real");
+                    b.Property<double>("Value")
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
@@ -259,8 +262,8 @@ namespace SCADA.Migrations
                 {
                     b.HasBaseType("SCADA.Model.Tag");
 
-                    b.Property<bool>("InitialValue")
-                        .HasColumnType("boolean");
+                    b.Property<double>("InitialValue")
+                        .HasColumnType("double precision");
 
                     b.HasDiscriminator().HasValue("DigitalOutput");
                 });

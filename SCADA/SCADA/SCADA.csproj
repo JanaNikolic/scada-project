@@ -32,6 +32,8 @@
 
     <ItemGroup>
       <Folder Include="ClientApp\src\app\add-user" />
+      <Folder Include="ClientApp\src\app\services" />
+      <Folder Include="Migrations" />
       <Folder Include="Migrations\" />
     </ItemGroup>
 

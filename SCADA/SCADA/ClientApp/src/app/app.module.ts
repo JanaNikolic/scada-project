@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import {AddUserComponent} from "./add-user/add-user/add-user.component";
+import {AddUserComponent} from "./add-user/add-user.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -26,6 +26,9 @@ import { AnalogOutputsComponent } from './analog-outputs/analog-outputs.componen
 import { OutputDialogComponent } from './dialogs/output-dialog/output-dialog.component';
 import { InputDialogComponent } from './dialogs/input-dialog/input-dialog/input-dialog.component';
 import { ValueDialogComponent } from './dialogs/value-dialog/value-dialog/value-dialog.component';
+import { LoginComponent } from './login/login.component';
+import { MaterialModule } from './material/material.module';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import { ValueDialogComponent } from './dialogs/value-dialog/value-dialog/value-
     AnalogOutputsComponent,
     OutputDialogComponent,
     InputDialogComponent,
-    ValueDialogComponent
+    ValueDialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -63,12 +67,13 @@ import { ValueDialogComponent } from './dialogs/value-dialog/value-dialog/value-
         { path: 'inputs', component: AnalogInputsComponent },
         { path: 'outputs', component: AnalogOutputsComponent },
       ],},
+      { path: '', redirectTo: '/login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent, pathMatch: 'full' },
       { path: 'add-user', component: AddUserComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'login', component: FetchDataComponent },
-      { path: '', redirectTo: '/home', pathMatch: 'full' },
+      { path: 'trending', component: FetchDataComponent },
     ]),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

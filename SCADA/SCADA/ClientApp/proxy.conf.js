@@ -28,6 +28,17 @@ const PROXY_CONFIG = [
   },
   {
     context: [
+      "/login",
+    ],
+    proxyTimeout: 10000,
+    target: target,
+    secure: false,
+    headers: {
+      Connection: 'Keep-Alive'
+    }
+  },
+  {
+    context: [
       "/tag",
     ],
     proxyTimeout: 10000,
