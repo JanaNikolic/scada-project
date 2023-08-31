@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Add user</h1>
+
+  <form (ngSubmit)="registerUser()" [formGroup]="registerForm">
+    <div class="row">
+      <mat-form-field class="form-input" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="text" name="email" formControlName="email"/>
+      </mat-form-field>
+      <mat-form-field class="form-input" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" name="password" formControlName="password"/>
+      </mat-form-field>
+      <mat-radio-group aria-label="Select user type" formControlName="userType">
+        <mat-radio-button value="USER" color="primary" checked>User</mat-radio-button>
+        <mat-radio-button value="ADMIN" color="primary">Admin</mat-radio-button>
+      </mat-radio-group>
+      
+    </div>
+    <div class="row">
+      <div class="button">
+        <button class="form-btn" color="primary" id="add-btn-form" type="submit" mat-raised-button>Add user</button>
+      </div>
+    </div>
+  </form>
+</div>
