@@ -21,4 +21,6 @@ public interface ITagRepository
     public Task<List<Tag>> GetInputsAsync();
     public Task<Tag?> GetInputByAddress(string address);
     public void AddTagRecord(TagRecord tagRecord);
+    AnalogInput GetAnalogInputById(int tagId);
+    public void UpdateTag(Tag tag);
 }

@@ -10,6 +10,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import {AddUserComponent} from "./add-user/add-user/add-user.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AlarmComponent } from './alarm/alarm.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     NavMenuComponent,
     HomeComponent,
     AddUserComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    AlarmComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,6 +32,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
       { path: 'add-user', component: AddUserComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'login', component: FetchDataComponent },
+      { path: 'alarm', component: AlarmComponent },
     ]),
     BrowserAnimationsModule
   ],

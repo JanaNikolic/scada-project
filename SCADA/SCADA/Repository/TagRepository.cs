@@ -121,4 +121,23 @@ public class TagRepository : ITagRepository
         _dataContext.TagRecords.Add(tagRecord);
         _dataContext.SaveChanges();
     }
+
+    public AnalogInput GetAnalogInputById(int tagId)
+    {
+        return _dataContext.AnalogInputs.Find(tagId);
+    }
+
+    public void UpdateTag(Tag tag)
+    {
+        if (tag is AnalogInput analogInput)
+        {
+            _dataContext.AnalogInputs.Update(analogInput);
+            _dataContext.SaveChanges();
+        } else if (tag is DigitalInput digitalInput)
+        {
+            _dataContext.DigitalInputs.Update(digitalInput);
+            _dataContext.SaveChanges();
+        } //TODO
+
+    }
 }

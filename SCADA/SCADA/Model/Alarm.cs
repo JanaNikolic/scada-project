@@ -19,7 +19,7 @@ public class Alarm
         Priority = priority;
         AnalogInput = analogInput;
         TagId = tagId;
-        Timestamp = DateTime.Now;
+        Timestamp = DateTime.UtcNow;
     }
 
     public enum AlarmType
@@ -29,6 +29,6 @@ public class Alarm
     
     public enum AlarmPriority
     {
-        Level0, Level1, Level2, Level3, Level4
+        Level1, Level2, Level3
     }
 }
