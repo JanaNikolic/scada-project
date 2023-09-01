@@ -29,6 +29,7 @@ import { InputDialogComponent } from './dialogs/input-dialog/input-dialog/input-
 import { ValueDialogComponent } from './dialogs/value-dialog/value-dialog/value-dialog.component';
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './material/material.module';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { MaterialModule } from './material/material.module';
     OutputDialogComponent,
     InputDialogComponent,
     ValueDialogComponent,
-    LoginComponent
+    LoginComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
