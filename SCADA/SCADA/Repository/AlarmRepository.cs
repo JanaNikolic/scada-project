@@ -16,6 +16,16 @@ public class AlarmRepository : IAlarmRepository
         _tagRepository = tagRepository;
     }
 
+    public List<Alarm> GetAllAlarms()
+    {
+        return _dataContext.Alarms.Include(x => x.AnalogInput).ToList();
+    }
+
+    public List<AlarmActivated> GetAllActivatedAlarms()
+    {
+        return _dataContext.AlarmsActivated.OrderByDescending(x => x.Timestamp).ToList();
+    }
+
     public Alarm GetById(int id)
     {
         return _dataContext.Alarms.First(a => a.Id == id);

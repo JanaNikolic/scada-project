@@ -19,9 +19,10 @@ public interface ITagRepository
     public void RemoveTag(Tag tag);
     public AnalogInput UpdateAnalogInputScan(int id);
     public DigitalInput UpdateDigitalInputScan(int id);
-
     public List<Tag> GetInputs();
     public Task<List<Tag>> GetInputsAsync();
     public Task<Tag?> GetInputByAddress(string address);
     public void AddTagRecord(TagRecord tagRecord);
+    public AnalogInput GetAnalogInputById(int tagId);
+    public void UpdateTag(Tag tag);
 }

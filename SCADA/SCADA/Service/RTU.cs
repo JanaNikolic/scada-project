@@ -42,6 +42,8 @@ public class RTU : BackgroundService
                     tag.Id = tagId;
                     var tagRecord = new TagRecord(tag, value, tag.IOAddress);
                     tagRecord.Timestamp = DateTime.UtcNow;
+                    tag.Value = value;
+                    tagRepository.UpdateTag(tag);
                     tagRepository.AddTagRecord(tagRecord);
                 }
 

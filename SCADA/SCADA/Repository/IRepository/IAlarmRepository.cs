@@ -4,6 +4,8 @@ namespace SCADA.Repository.IRepository;
 
 public interface IAlarmRepository
 {
+    public List<Alarm> GetAllAlarms();
+    public List<AlarmActivated> GetAllActivatedAlarms();
     public Alarm GetById(int id);
     public void AddAlarm(Alarm alarm);
     public void DeleteAlarm(Alarm alarm);

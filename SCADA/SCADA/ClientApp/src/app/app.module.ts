@@ -15,6 +15,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import {AddUserComponent} from "./add-user/add-user.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AlarmComponent } from './alarm/alarm.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -29,7 +30,6 @@ import { ValueDialogComponent } from './dialogs/value-dialog/value-dialog/value-
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './material/material.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +37,7 @@ import { MaterialModule } from './material/material.module';
     HomeComponent,
     AddUserComponent,
     FetchDataComponent,
+    AlarmComponent,
     AnalogInputsComponent,
     AnalogOutputsComponent,
     OutputDialogComponent,
@@ -70,6 +71,7 @@ import { MaterialModule } from './material/material.module';
       { path: '', redirectTo: '/login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
       { path: 'add-user', component: AddUserComponent },
+      { path: 'alarm', component: AlarmComponent },
       { path: 'trending', component: FetchDataComponent },
     ]),
     BrowserAnimationsModule,
