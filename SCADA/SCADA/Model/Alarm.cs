@@ -27,8 +27,8 @@ public class Alarm
         ABOVE, BELOW
     }
     
-    public enum AlarmPriority
-    {
-        Level1, Level2, Level3
-    }
+}
+public enum AlarmPriority
+{
+    Level1, Level2, Level3
 }

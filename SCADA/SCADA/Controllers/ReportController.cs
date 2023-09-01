@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SCADA.Model;
+using SCADA.Service.IService;
+using System;
 
 namespace SCADA.Controllers
 {
@@ -6,18 +9,21 @@ namespace SCADA.Controllers
     [Route("[controller]")]
     public class ReportController : ControllerBase
     {
+        private readonly IReportService _reportService;
+        private readonly ITagService _tagService;
+
         [IgnoreAntiforgeryToken]
         [HttpGet("alarms-in-range")]
-        public IActionResult GetAlarmsInRangeReport()
+        public IActionResult GetAlarmsInRangeReport([FromBody] TimeRange timeRange)
         {
-            return Ok();
+            return Ok(this._reportService.getAllAlarmsInTimeRange(timeRange));
         }
 
         [IgnoreAntiforgeryToken]
-        [HttpGet("alarms-by-priority")]
-        public IActionResult GetAlarmsByPriorityReport()
+        [HttpGet("alarms/{priority}")]
+        public IActionResult GetAlarmsByPriorityReport(string priority)
         {
-            return Ok();
+            return Ok(_reportService.getAllAlarmsByPriority((AlarmPriority)Enum.Parse(typeof(AlarmPriority), priority)));
         }
 
         [IgnoreAntiforgeryToken]
@@ -29,23 +35,23 @@ namespace SCADA.Controllers
 
         [IgnoreAntiforgeryToken]
         [HttpGet("ai")]
-        public IActionResult GetLastAnalogInputValue()
+        public IActionResult GetLastAnalogInputValues()
         {
-            return Ok();
+            return Ok(_tagService.GetInputTags());
         }
 
         [IgnoreAntiforgeryToken]
         [HttpGet("di")]
-        public IActionResult GetLastDigitalInputValue()
+        public IActionResult GetLastDigitalInputValues()
         {
-            return Ok();
+            return Ok(_tagService.GetInputTags());
         }
 
         [IgnoreAntiforgeryToken]
         [HttpGet("{id}")]
         public IActionResult GetTagValues(int id)
         {
-            return Ok();
+            return Ok(_reportService.getAllRecordsByTag);
         }
     }
 }

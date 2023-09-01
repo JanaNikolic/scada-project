@@ -90,7 +90,7 @@ public class AlarmService : IAlarmService
 
     public List<AlarmActivated> GetAlarmsByPriority(int priority)
     {
-        return _alarmRepository.GetActivatedAlarmsByPriority((Alarm.AlarmPriority)priority);
+        return _alarmRepository.GetActivatedAlarmsByPriority((AlarmPriority)priority);
     }
     
     private void LogAlarm(AlarmActivated alarm, AnalogInput analogInput)
