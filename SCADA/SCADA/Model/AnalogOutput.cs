@@ -19,4 +19,9 @@ public class AnalogOutput : Tag
         HighLimit = highLimit;
         Units = units;
     }
+
+    public override string ToString()
+    {
+        return $"{base.ToString()}, {nameof(InitialValue)}: {InitialValue}, {nameof(LowLimit)}: {LowLimit}, {nameof(HighLimit)}: {HighLimit}, {nameof(Units)}: {Units}";
+    }
 }

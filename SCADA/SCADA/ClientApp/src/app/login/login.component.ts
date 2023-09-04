@@ -47,9 +47,10 @@ export class LoginComponent {
       };
 
       this.userService.login(loginDTO).subscribe({
-        next: (value: User) => {
+        next: (value: any) => {
           console.log(value);
-          if (value.Role === "USER") this.router.navigate(['/trending']);
+          localStorage.setItem("user", value.role)
+          if (value.role === "USER") this.router.navigate(['/trending']);
           else this.router.navigate(['/home']);
         },
         error: (error: any) => {

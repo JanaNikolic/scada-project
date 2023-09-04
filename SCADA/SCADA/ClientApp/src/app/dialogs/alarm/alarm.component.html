@@ -1,0 +1,31 @@
+<div style="text-align: center">
+  <h1 mat-dialog-title style="font-size: 20px">Add alarm</h1>
+  <mat-dialog-content>
+    <form [formGroup]="inputForm">
+      <mat-form-field style="width: 350px">
+        <mat-label>Threshold</mat-label>
+        <input matInput formControlName="threshold" type="number" required />
+        <mat-error>
+          Threshold is required and must be between {{data.lowLimit}} and {{data.highLimit}}
+        </mat-error>
+      </mat-form-field>
+      <mat-select style="width: 350px; margin-left: 10px; height: 56px" formControlName="type" placeholder="Type"
+                  required>
+        <mat-option [value]="'ABOVE'">Above</mat-option>
+        <mat-option [value]="'BELOW'">Below</mat-option>
+      </mat-select>
+      <mat-select style="width: 350px; margin-left: 10px; height: 56px" formControlName="priority" placeholder="Priority"
+                  required>
+        <mat-option [value]="'Level1'">Low</mat-option>
+        <mat-option [value]="'Level2'">Medium</mat-option>
+        <mat-option [value]="'Level3'">Critical</mat-option>
+      </mat-select>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="submit" [disabled]="!isFormValid()" (click)="addAlarm()">
+      Submit
+    </button>
+    <button mat-button (click)="closeDialog()">Close</button>
+  </mat-dialog-actions>
+</div>

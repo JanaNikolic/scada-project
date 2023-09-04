@@ -23,7 +23,7 @@ public class TagRecord
     {
         TagId = tag.Id;
         Tag = tag;
-        Timestamp = DateTime.Now;
+        Timestamp = DateTime.UtcNow;
         Value = value;
         IOAddress = address;
     }

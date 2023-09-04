@@ -1,5 +1,11 @@
+using System.Xml.Serialization;
+
 namespace SCADA.Model;
 
+[XmlInclude(typeof(AnalogInput))]
+[XmlInclude(typeof(DigitalInput))]
+[XmlInclude(typeof(AnalogOutput))]
+[XmlInclude(typeof(DigitalOutput))]
 public class Tag
 {
     public int Id { get; set; }
@@ -21,5 +27,10 @@ public class Tag
         IOAddress = ioAddress;
         Description = description;
         IsDeleted = false;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(IOAddress)}: {IOAddress}, {nameof(Description)}: {Description}, {nameof(Value)}: {Value}, {nameof(IsDeleted)}: {IsDeleted}";
     }
 }

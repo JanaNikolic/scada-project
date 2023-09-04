@@ -14,16 +14,11 @@ namespace SCADA.Service
     {
         private readonly ITagRepository _tagRepository;
         private readonly IServiceScopeFactory _serviceScope;
-        private readonly IHubContext<RTUHubClient, IRTUHubClient> _rtHubContext;
-        private readonly IHubContext<SimulationHubClient, ISimulationHubClient> _simulationHubContext;
 
-        public TagService(ITagRepository tagRepository, IServiceScopeFactory serviceScope, IHubContext<RTUHubClient, IRTUHubClient> rtHubContext,
-         IHubContext<SimulationHubClient, ISimulationHubClient> simulationHubContext)
+        public TagService(ITagRepository tagRepository, IServiceScopeFactory serviceScope)
         {
             _tagRepository = tagRepository;
             _serviceScope = serviceScope;
-            _rtHubContext = rtHubContext;
-            _simulationHubContext = simulationHubContext;
         }
 
         public void AddTag(TagDTO dto)
@@ -134,6 +129,11 @@ namespace SCADA.Service
             }
 
             _tagRepository.AddOutputValue(dto);
+        }
+
+        public List<Tag> GetTags()
+        {
+            return _tagRepository.GetAll();
         }
 
         public InputListDTO GetInputTags()

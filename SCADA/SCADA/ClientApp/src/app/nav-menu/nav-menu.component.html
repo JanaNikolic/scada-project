@@ -3,7 +3,7 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">SCADA</a>
+      <a class="navbar-brand">SCADA</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -25,26 +25,26 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/home']">Home</a>
+            <a class="nav-link text-dark" [routerLink]="['/home']" *ngIf="isLoggedIn && admin()" >Home</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/add-user']"
+            <a class="nav-link text-dark" [routerLink]="['/add-user']" *ngIf="isLoggedIn && admin()"
               >Add User</a
             >
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Fetch data</a
+            <a class="nav-link text-dark" [routerLink]="['/trending']" *ngIf="isLoggedIn && !admin()"
+            >Trending</a
             >
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/login']"
-            >Login</a
+            <a class="nav-link text-dark" [routerLink]="['/reports']" *ngIf="isLoggedIn && !admin()"
+            >Reports</a
             >
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/alarm']"
-            >Alarm</a
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="loggedIn()">
+            <a class="nav-link text-dark" [routerLink]="['/login']" (click)="logout()"
+            >Log out</a
             >
           </li>
         </ul>

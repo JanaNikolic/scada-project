@@ -11,12 +11,14 @@ namespace SCADA.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
+    private readonly ITagService _tagService;
     private readonly ILogger<UserController> _logger;
 
-    public UserController(ILogger<UserController> logger, IUserService userService)
+    public UserController(ILogger<UserController> logger, IUserService userService, ITagService tagService)
     {
         _logger = logger;
         _userService = userService;
+        _tagService = tagService;
     }
     
     [HttpGet("{id}")]
