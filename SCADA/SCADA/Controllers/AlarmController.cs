@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SCADA.DTOS;
 using SCADA.Model;
 using SCADA.Service.IService;
 
@@ -53,7 +54,7 @@ public class AlarmController : ControllerBase
     
     [IgnoreAntiforgeryToken]
     [HttpPost]
-    public IActionResult AddAlarm([FromBody]Alarm alarm)
+    public IActionResult AddAlarm([FromBody]AlarmRequestDTO alarm)
     {
         try
         {

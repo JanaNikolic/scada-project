@@ -10,4 +10,9 @@ public class DigitalOutput : Tag
     {
         InitialValue = initialValue;
     }
+
+    public override string ToString()
+    {
+        return $"{base.ToString()}, {nameof(InitialValue)}: {InitialValue}";
+    }
 }

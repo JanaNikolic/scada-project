@@ -15,4 +15,9 @@ public class DigitalInput : Tag
         ScanTime = scanTime;
         IsScanOn = isScanOn;
     }
+
+    public override string ToString()
+    {
+        return $"{base.ToString()}, {nameof(Driver)}: {Driver}, {nameof(ScanTime)}: {ScanTime}, {nameof(IsScanOn)}: {IsScanOn}";
+    }
 }

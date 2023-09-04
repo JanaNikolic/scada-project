@@ -1,3 +1,5 @@
+using System.Xml.Serialization;
+
 namespace SCADA.Model;
 
 public class AnalogInput : Tag
@@ -6,6 +8,7 @@ public class AnalogInput : Tag
 
     public double ScanTime { get; set; }
 
+    [XmlIgnore]
     public List<Alarm> Alarms { get; set; } = new List<Alarm>();
 
     public bool IsScanOn { get; set; }
@@ -28,5 +31,10 @@ public class AnalogInput : Tag
         LowLimit = lowLimit;
         HighLimit = highLimit;
         Units = units;
+    }
+
+    public override string ToString()
+    {
+        return $"{base.ToString()}, {nameof(Driver)}: {Driver}, {nameof(ScanTime)}: {ScanTime}, {nameof(Alarms)}: {Alarms}, {nameof(IsScanOn)}: {IsScanOn}, {nameof(LowLimit)}: {LowLimit}, {nameof(HighLimit)}: {HighLimit}, {nameof(Units)}: {Units}";
     }
 }

@@ -16,7 +16,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import {AddUserComponent} from "./add-user/add-user.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AlarmComponent } from './alarm/alarm.component';
+import {AlarmComponent} from "./dialogs/alarm/alarm.component";
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -38,6 +38,8 @@ import { TagRecordsComponent } from './reports/tag-records/tag-records.component
 import { AlarmTimeRangeComponent } from './reports/alarm-time-range/alarm-time-range.component';
 import { RecordsTimeRangeComponent } from './reports/records-time-range/records-time-range.component';
 import {DatePipe} from "@angular/common";
+import { TrendingComponent } from './trending/trending.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +58,8 @@ import {DatePipe} from "@angular/common";
     AlarmTimeRangeComponent,
     InputReportComponent,
     RecordsTimeRangeComponent,
-    TagRecordsComponent
+    TagRecordsComponent,
+    TrendingComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -93,12 +96,12 @@ import {DatePipe} from "@angular/common";
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
       { path: 'add-user', component: AddUserComponent },
       { path: 'alarm', component: AlarmComponent },
-      { path: 'trending', component: FetchDataComponent },
       { path: 'alarm-by-priority', component: AlarmByPriorityComponent },
       { path: 'alarm-by-range', component: AlarmTimeRangeComponent },
       { path: 'current-values', component: InputReportComponent },
       { path: 'tag-records', component: TagRecordsComponent },
       { path: 'records-by-range', component: RecordsTimeRangeComponent },
+      { path: 'trending', component: TrendingComponent },
     ]),
     BrowserAnimationsModule,
     MaterialModule

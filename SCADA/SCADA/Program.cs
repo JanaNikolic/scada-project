@@ -1,3 +1,4 @@
+using System.Xml.Serialization;
 using Microsoft.EntityFrameworkCore;
 using SCADA.Data;
 using SCADA.Hubs;
@@ -5,6 +6,7 @@ using SCADA.Repository;
 using SCADA.Repository.IRepository;
 using SCADA.Service;
 using SCADA.Service.IService;
+using SCADA.Util;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,10 @@ builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 
 
+// builder.Services.AddTransient<ShutdownConfig>();
+builder.Services.AddHostedService<ShutdownConfig>();
+
+// builder.Services.AddHostedService(provider => provider.GetRequiredService<ShutdownConfig>());
 builder.Services.AddSignalR();
 
 builder.Services.AddHostedService<SimulationService>();
@@ -35,6 +41,14 @@ builder.Services.AddHostedService<RTU>();
 
 var app = builder.Build();
 
+// var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+//
+// using (var scope = scopedFactory.CreateScope())
+// {
+//     var service = scope.ServiceProvider.GetService<XMLConfig>();
+//     service.XMLDeserialization();
+// }
+//
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -52,6 +66,7 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
+app.UseWebSockets();
 
 app.MapHub<RTUHubClient>("/hubs/rtu");
 app.MapHub<SimulationHubClient>("/hubs/simulation");
