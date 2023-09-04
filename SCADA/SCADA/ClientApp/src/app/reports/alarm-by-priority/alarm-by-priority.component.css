@@ -1,0 +1,14 @@
+.form {
+    display: flex;
+    flex-direction: row;
+    z-index: 10;
+    padding: 10px;
+}
+
+.form button {
+    padding: 10px;
+}
+
+.form mat-select {
+    padding: 10px;
+}

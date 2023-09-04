@@ -15,9 +15,11 @@ namespace SCADA.Service
         private readonly ITagRecordRepository _tagRecordRepository;
         private readonly IServiceScopeFactory _serviceScope;
 
-        public ReportService(ITagRepository tagRepository)
+        public ReportService(ITagRepository tagRepository, IAlarmRepository alarmRepository, ITagRecordRepository tagRecordRepository)
         {
             _tagRepository = tagRepository;
+            _alarmRepository = alarmRepository;
+            _tagRecordRepository = tagRecordRepository;
         }
         public List<AlarmActivated> getAllAlarmsByPriority(AlarmPriority priority)
         {

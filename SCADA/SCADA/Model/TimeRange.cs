@@ -7,5 +7,11 @@
 
         public TimeRange() { }
 
+        public TimeRange(DateTime start, DateTime end)
+        {
+            this.StartTime = start;
+            this.EndTime = end; 
+        }
+
     }
 }

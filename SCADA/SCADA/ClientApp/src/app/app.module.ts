@@ -1,3 +1,4 @@
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AnalogInputsComponent } from './analog-inputs/analog-inputs.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -29,8 +30,13 @@ import { InputDialogComponent } from './dialogs/input-dialog/input-dialog/input-
 import { ValueDialogComponent } from './dialogs/value-dialog/value-dialog/value-dialog.component';
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './material/material.module';
-import { ReportsComponent } from './reports/reports.component';
-
+import { AlarmByPriorityComponent } from './reports/alarm-by-priority/alarm-by-priority.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSortModule } from '@angular/material/sort';
+import { InputReportComponent } from './reports/input-report/input-report.component';
+import { TagRecordsComponent } from './reports/tag-records/tag-records.component';
+import { AlarmTimeRangeComponent } from './reports/alarm-time-range/alarm-time-range.component';
+import { RecordsTimeRangeComponent } from './reports/records-time-range/records-time-range.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +51,11 @@ import { ReportsComponent } from './reports/reports.component';
     InputDialogComponent,
     ValueDialogComponent,
     LoginComponent,
-    ReportsComponent
+    AlarmByPriorityComponent,
+    AlarmTimeRangeComponent,
+    InputReportComponent,
+    RecordsTimeRangeComponent,
+    TagRecordsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -61,7 +71,10 @@ import { ReportsComponent } from './reports/reports.component';
     MatPaginatorModule,
     MatCheckboxModule,
     MatTableModule,
+    MatSortModule,
     MatDialogModule,
+    MatMenuModule,
+    MatDatepickerModule,
     MatOptionModule,
     MatButtonModule,
     RouterModule.forRoot([
@@ -75,6 +88,10 @@ import { ReportsComponent } from './reports/reports.component';
       { path: 'add-user', component: AddUserComponent },
       { path: 'alarm', component: AlarmComponent },
       { path: 'trending', component: FetchDataComponent },
+      { path: 'alarm-by-priority', component: AlarmByPriorityComponent },
+      { path: 'alarm-by-range', component: AlarmTimeRangeComponent },
+      { path: 'current-values', component: InputReportComponent },
+      { path: 'tag-records', component: TagRecordsComponent },
     ]),
     BrowserAnimationsModule,
     MaterialModule

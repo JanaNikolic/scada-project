@@ -12,6 +12,12 @@ namespace SCADA.Controllers
         private readonly IReportService _reportService;
         private readonly ITagService _tagService;
 
+        public ReportController(ITagService tagService, IReportService reportService)
+        {
+            _reportService = reportService;
+            _tagService = tagService;
+        }
+
         [IgnoreAntiforgeryToken]
         [HttpGet("alarms-in-range")]
         public IActionResult GetAlarmsInRangeReport([FromBody] TimeRange timeRange)
@@ -51,7 +57,7 @@ namespace SCADA.Controllers
         [HttpGet("{id}")]
         public IActionResult GetTagValues(int id)
         {
-            return Ok(_reportService.getAllRecordsByTag);
+            return Ok(_reportService.getAllRecordsByTag(id));
         }
     }
 }

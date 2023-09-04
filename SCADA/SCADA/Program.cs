@@ -19,10 +19,14 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IAlarmRepository, AlarmRepository>();
+builder.Services.AddScoped<ITagRecordRepository, TagRecordRepository>();
+
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAlarmService, AlarmService>();
 builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<IReportService, ReportService>();
+
 
 builder.Services.AddSignalR();
 
