@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.SignalR;
+using SCADA.Hubs;
+using SCADA.Hubs.IHubs;
 using SCADA.Model;
 using SCADA.Repository.IRepository;
 
@@ -7,10 +10,12 @@ public class RTU : BackgroundService
 {
 	private readonly IServiceProvider _serviceProvider;
 	private Random random = new Random();
+    private readonly IHubContext<RTUHubClient,IRTUHubClient> _rtuHub;
 
-	public RTU(IServiceProvider serviceProvider)
+	public RTU(IServiceProvider serviceProvider, IHubContext<RTUHubClient,IRTUHubClient> rtuHub)
     {
         _serviceProvider = serviceProvider;
+        _rtuHub = rtuHub;
     }
 
 	protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -21,11 +26,10 @@ public class RTU : BackgroundService
             {
                 var tagRepository = scope.ServiceProvider.GetRequiredService<ITagRepository>();
 
-                var inputTags = await tagRepository.GetInputsAsync();
-                for(int i = 1; i < 20; i++)
+                var inputTags = await tagRepository.GetRTUInputsAsync();
+                foreach (var tag in inputTags)
                 {
                     double value;
-                    Tag? tag = inputTags.FirstOrDefault(t => t.IOAddress == i.ToString());
                     if(tag == null) { continue; }
                     
                     if(tag is AnalogInput analogInput)
@@ -38,13 +42,11 @@ public class RTU : BackgroundService
                         value = random.NextInt64(0, 2);
                         value = Math.Round(value, 2, MidpointRounding.AwayFromZero);
                     }
-                    var tagId = tag == null ? 0 : tag.Id;
-                    tag.Id = tagId;
                     var tagRecord = new TagRecord(tag, value, tag.IOAddress);
-                    tagRecord.Timestamp = DateTime.UtcNow;
                     tag.Value = value;
                     tagRepository.UpdateTag(tag);
                     tagRepository.AddTagRecord(tagRecord);
+                    await _rtuHub.Clients.All.SendRTUData(tagRecord);
                 }
 
             }

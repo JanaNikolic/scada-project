@@ -169,4 +169,18 @@ public class TagRepository : ITagRepository
     {
         return _dataContext.TagRecords.Where(x => x.IOAddress == address).OrderByDescending(x=>x.Timestamp).FirstOrDefaultAsync();
     }
+
+    public async Task<List<Tag>> GetSimulationDriverTags()
+    {
+        var analog = await _dataContext.AnalogInputs.Where(a => a.Driver == "Simulation").ToListAsync();
+        var digital = await _dataContext.DigitalInputs.Where(a => a.Driver == "Simulation").ToListAsync();
+        return analog.Cast<Tag>().Concat(digital.Cast<Tag>()).ToList();
+    }
+
+    public async Task<List<Tag>> GetRTUInputsAsync()
+    {
+        var analog = await _dataContext.AnalogInputs.Where(a => a.Driver == "RTU").ToListAsync();
+        var digital = await _dataContext.DigitalInputs.Where(a => a.Driver == "RTU").ToListAsync();
+        return analog.Cast<Tag>().Concat(digital.Cast<Tag>()).ToList();
+    }
 }

@@ -55,7 +55,6 @@ public class UserController : ControllerBase
             var login = _userService.Login(user.Email, user.Password);
             if (login == null)
                 return BadRequest("Invalid credentials!");
-            _tagService.StartSimulation();
             return Ok(login);
         }catch (Exception ex)
         {

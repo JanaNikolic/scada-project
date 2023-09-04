@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-16"?>
-<tags>
+<Tags>
   <AnalogInput>
     <AnalogInput xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
       <Id>1</Id>
       <Name>Struja</Name>
       <IOAddress>5</IOAddress>
       <Description>Tag za merelje struje</Description>
-      <Value>43.06</Value>
+      <Value>83</Value>
       <IsDeleted>false</IsDeleted>
-      <Driver>Struja</Driver>
+      <Driver>Simulation</Driver>
       <ScanTime>5</ScanTime>
       <IsScanOn>true</IsScanOn>
       <LowLimit>0</LowLimit>
@@ -21,9 +21,9 @@
         <Name>Napon</Name>
         <IOAddress>2</IOAddress>
         <Description>Tag za merelje napona</Description>
-        <Value>16.02</Value>
+        <Value>19.16</Value>
         <IsDeleted>false</IsDeleted>
-        <Driver>Napon</Driver>
+        <Driver>RTU</Driver>
         <ScanTime>2</ScanTime>
         <IsScanOn>true</IsScanOn>
         <LowLimit>0</LowLimit>
@@ -36,9 +36,9 @@
           <Name>Snaga</Name>
           <IOAddress>4</IOAddress>
           <Description>Tag za merelje snage</Description>
-          <Value>34.28</Value>
+          <Value>29.81</Value>
           <IsDeleted>false</IsDeleted>
-          <Driver>Snaga</Driver>
+          <Driver>RTU</Driver>
           <ScanTime>2</ScanTime>
           <IsScanOn>true</IsScanOn>
           <LowLimit>0</LowLimit>
@@ -47,26 +47,26 @@
         </AnalogInput>
         <DigitalInput>
           <DigitalInput xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-            <Id>4</Id>
-            <Name>D1</Name>
-            <IOAddress>1</IOAddress>
+            <Id>6</Id>
+            <Name>D3</Name>
+            <IOAddress>8</IOAddress>
             <Description>Opis</Description>
             <Value>0</Value>
             <IsDeleted>false</IsDeleted>
-            <Driver />
-            <ScanTime>3</ScanTime>
+            <Driver>RTU</Driver>
+            <ScanTime>2</ScanTime>
             <IsScanOn>true</IsScanOn>
           </DigitalInput>
           <DigitalInput>
             <DigitalInput xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-              <Id>6</Id>
-              <Name>D3</Name>
-              <IOAddress>8</IOAddress>
+              <Id>4</Id>
+              <Name>D1</Name>
+              <IOAddress>1</IOAddress>
               <Description>Opis</Description>
               <Value>0</Value>
               <IsDeleted>false</IsDeleted>
-              <Driver />
-              <ScanTime>2</ScanTime>
+              <Driver>Simulation</Driver>
+              <ScanTime>3</ScanTime>
               <IsScanOn>true</IsScanOn>
             </DigitalInput>
           </DigitalInput>
@@ -74,4 +74,4 @@
       </AnalogInput>
     </AnalogInput>
   </AnalogInput>
-</tags>
+</Tags>

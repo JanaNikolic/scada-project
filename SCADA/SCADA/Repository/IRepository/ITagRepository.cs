@@ -26,4 +26,6 @@ public interface ITagRepository
     public AnalogInput GetAnalogInputById(int tagId);
     public void UpdateTag(Tag tag);
     public Task<TagRecord?> GetTagRecordByAddress(string address);
+    public Task<List<Tag>> GetSimulationDriverTags();
+    public Task<List<Tag>> GetRTUInputsAsync();
 }

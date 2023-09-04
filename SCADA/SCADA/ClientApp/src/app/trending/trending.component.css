@@ -2,8 +2,8 @@
   padding: 0;
   min-width: 85px;
   margin: 0 5px;
-  background: rgba(79, 255, 0, 0.8);
   text-align: center;
+  border: 2px solid gray;
 }
 .alarm-threshold{
   font-size: 26px;

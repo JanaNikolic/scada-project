@@ -14,16 +14,11 @@ namespace SCADA.Service
     {
         private readonly ITagRepository _tagRepository;
         private readonly IServiceScopeFactory _serviceScope;
-        private readonly IHubContext<RTUHubClient, IRTUHubClient> _rtuHubContext;
-        private readonly IHubContext<SimulationHubClient, ISimulationHubClient> _simulationHubContext;
 
-        public TagService(ITagRepository tagRepository, IServiceScopeFactory serviceScope, IHubContext<RTUHubClient, IRTUHubClient> rtHubContext,
-         IHubContext<SimulationHubClient, ISimulationHubClient> simulationHubContext)
+        public TagService(ITagRepository tagRepository, IServiceScopeFactory serviceScope)
         {
             _tagRepository = tagRepository;
             _serviceScope = serviceScope;
-            _rtuHubContext = rtHubContext;
-            _simulationHubContext = simulationHubContext;
         }
 
         public void AddTag(TagDTO dto)
@@ -196,89 +191,6 @@ namespace SCADA.Service
             {
                 throw new Exception("Scan couldn't be toggled");
             }
-        }
-
-        public void StartSimulation()
-        {
-            var inputs = _tagRepository.GetInputs();
-
-            foreach (var input in inputs)
-            {
-                if (input is AnalogInput analog) { StartAnalogThread(analog); }
-                else if(input is DigitalInput digital) { StartDigitalThread(digital); }
-            }
-        }
-
-        private void StartDigitalThread(DigitalInput digital)
-        {
-            new Thread(async () =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                while (true)
-                {
-                    using (var scope = _serviceScope.CreateScope())
-                    {
-
-                        if (digital.IsScanOn)
-                        {
-                            var repo = scope.ServiceProvider.GetRequiredService<ITagRepository>();
-                            TagRecord? value = await repo.GetTagRecordByAddress(digital.IOAddress);
-                            if (value == null) { return; }
-                            SendValue(value);
-                        }
-                    }
-                    Thread.Sleep(TimeSpan.FromSeconds(digital.ScanTime));
-                }
-            }).Start();
-        }
-
-        private void StartAnalogThread(AnalogInput analog)
-        {
-            new Thread(async () =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-
-                while (true)
-                {
-                    using (var scope = _serviceScope.CreateScope())
-                    {
-                        if (analog.IsScanOn)
-                        {
-                            var repo = scope.ServiceProvider.GetRequiredService<ITagRepository>();
-                            TagRecord? value = await repo.GetTagRecordByAddress(analog.IOAddress);
-                            if (value == null) { return; }
-                            SendValue(value);
-                            var alarmService = scope.ServiceProvider.GetRequiredService<IAlarmService>();
-                            CheckIfAlarmExists(value, analog, alarmService);
-                        }
-                    }
-
-                    Thread.Sleep(TimeSpan.FromSeconds(analog.ScanTime));
-                }
-            }).Start();
-        }
-
-        private void CheckIfAlarmExists(TagRecord value, AnalogInput analog, IAlarmService alarmService)
-        {
-            foreach(var alarm in analog.Alarms)
-            {
-                Alarm a = alarmService.GetById(alarm.Id);
-                if ((alarm.Type == AlarmType.ABOVE && alarm.Threshold >= value.Value) || (alarm.Type == AlarmType.BELOW && alarm.Threshold <= value.Value))
-                {
-                    alarmService.AddAlarmValue(new AlarmActivated(a), analog);
-                    SendAlarm(a);
-                }
-            }
-        }
-
-        private void SendValue(TagRecord value)
-        {
-            _rtuHubContext.Clients.All.SendRTUData(value);
-        }
-        
-        private void SendAlarm(Alarm alarm)
-        {
-            _simulationHubContext.Clients.All.SendSimulationData(alarm);
         }
     }
 }

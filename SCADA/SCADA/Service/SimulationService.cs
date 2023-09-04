@@ -30,18 +30,19 @@ public class SimulationService : BackgroundService
         using (var scope = _serviceProvider.CreateScope())
         {
             var tagRepository = scope.ServiceProvider.GetRequiredService<ITagRepository>();
-            for (int i = 1; i < 5; i++)
+            var tags = await tagRepository.GetSimulationDriverTags();
+            foreach (var tag in tags)
             {
-                Tag? tag = await tagRepository.GetInputByAddress(i.ToString());
-                if (i % 3 == 0)
+                int i;
+                if (int.TryParse(tag.IOAddress, out i) && i % 3 == 0)
                 {
                     startThread(tag, i.ToString(), "S");
                 }
-                else if (i % 3 == 1)
+                else if (int.TryParse(tag.IOAddress, out i) && i % 3 == 1)
                 {
                     startThread(tag, i.ToString(), "C");
                 }
-                else
+                else if (int.TryParse(tag.IOAddress, out i))
                 {
                     startThread(tag, i.ToString(), "R");
                 }
@@ -59,25 +60,48 @@ public class SimulationService : BackgroundService
         {
             while (true)
             {
-                double val = SimulationDriver.SimulationDriver.ReturnValue(function);
-                // await _simulationHub.Clients.All.SendSimulationData(new SimulationDataDTO(address, val));
-                if (tag is not null)
+                using (var scope = _serviceProvider.CreateScope())
                 {
-                    if (tag is AnalogInput analog)
+                    var tagRepository = scope.ServiceProvider.GetRequiredService<ITagRepository>();
+                    
+                    double val = SimulationDriver.SimulationDriver.ReturnValue(function);
+                    
+                    if (tag is not null)
                     {
-                        Thread.Sleep(TimeSpan.FromSeconds(analog.ScanTime));
+                        if (tag is AnalogInput analog)
+                        {
+                            var tagRecord = new TagRecord(tag, val, tag.IOAddress);
+                            tag.Value = val;
+                            tagRepository.UpdateTag(tag);
+                            tagRepository.AddTagRecord(tagRecord);
+                            await _simulationHub.Clients.All.SendSimulationData(tagRecord);
+                            Thread.Sleep(TimeSpan.FromSeconds(analog.ScanTime));
 
+                        }
+                        else if (tag is DigitalInput digital)
+                        {
+                            val = (int)Math.Round(val % 2, 2, MidpointRounding.AwayFromZero);
+                            if (val < 0)
+                            {
+                                val = 0;
+                            }
+                            else if (val > 1)
+                            {
+                                val = 1;
+                            }
+                            var tagRecord = new TagRecord(tag, val, tag.IOAddress);
+                            tag.Value = val;
+                            tagRepository.UpdateTag(tag);
+                            tagRepository.AddTagRecord(tagRecord);
+                            await _simulationHub.Clients.All.SendSimulationData(tagRecord);
+                            Thread.Sleep(TimeSpan.FromSeconds(digital.ScanTime));
+                        }
                     }
-                    else if (tag is DigitalInput digital)
+                    else
                     {
-                        Thread.Sleep(TimeSpan.FromSeconds(digital.ScanTime));
+                        Thread.Sleep(TimeSpan.FromSeconds(5));
                     }
                 }
-                else
-                {
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
-                }
-
             }
         });
         thread.Start();

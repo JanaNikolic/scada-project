@@ -7,9 +7,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { InputDialogComponent } from '../dialogs/input-dialog/input-dialog/input-dialog.component';
-import {Alarm} from "../model/Alarm";
+import {Alarm, InputsDTO} from "../model/Alarm";
 import {AlarmComponent} from "../dialogs/alarm/alarm.component";
 import {Router} from "@angular/router";
+import {DigitalInput} from "../model/DigitalInput";
 
 
 @Component({
@@ -24,10 +25,11 @@ export class AnalogInputsComponent {
   selection = new SelectionModel<AnalogInput>(true, []);
 
   inputTags: AnalogInput[] = [];
-  constructor(private snackBar: MatSnackBar, private matDialog: MatDialog, private tagService: TagserviceService, private router: Router) { }
+  constructor(private snackBar: MatSnackBar, private matDialog: MatDialog, private tagService: TagserviceService, private router: Router) { this.connectHub();}
   @ViewChild('paginator') paginator!: MatPaginator;
   isSelectedAlarm: boolean = false;
   selectedAlarm: Alarm | undefined;
+  tags: any[] = [];
 
   ngOnInit() {
 
@@ -35,6 +37,8 @@ export class AnalogInputsComponent {
       next: (res) => {
         console.log(res);
         this.inputTags = [...res.analogInputList, ...res.digitalInputList];
+        res.analogInputList.forEach((x: any) => this.tags.push(x));
+        res.digitalInputList.forEach((x: any) => this.tags.push(x));
         this.dataSource = new MatTableDataSource<AnalogInput>(this.inputTags);
         this.dataSource.paginator = this.paginator;
       },
@@ -166,6 +170,50 @@ export class AnalogInputsComponent {
       this.selectedAlarm = alarm;
       this.isSelectedAlarm = true;
       console.log("2: " , this.selectedAlarm);
+    }
+  }
+
+  ngOnDestroy(){
+    this.tagService.stopConnection();
+  }
+
+  connectHub(){
+    this.tagService.startConnection()
+      .then(() => {
+        console.log('SignalR Simulation connection established');
+      })
+      .catch((error: any) => {
+        console.error('>>>SignalR Simulation connection error:', error);
+      });
+
+    this.tagService.getHubConnection().on('SendSimulationData', (data: any) => {
+      this.handleSimulationData(data);
+    });
+
+    this.tagService.getRTU().on("SendRTUData", (data: any) => {
+      this.handleRTU(data);
+    });
+
+    this.tagService.startRTU()
+      .then(() => {
+        console.log("SignalR RTU connection established");
+      }).catch((error: any) => {
+      console.error('SignalR RTU connection error:', error);
+    });
+  }
+
+  handleSimulationData(data: any){
+    // console.log(data);
+    for(let tag of this.tags){
+      if(tag.ioAddress == data.ioAddress.toString()) tag.value = Math.round((data.value + Number.EPSILON) * 100) / 100;
+    }
+  }
+
+  handleRTU(data: any){
+    // console.log(data);
+    for (let tag of this.tags){
+      // console.log(tag.ioAddress);
+      if(tag.ioAddress == data.ioAddress.toString()) tag.value = Math.round((data.value + Number.EPSILON) * 100) / 100;
     }
   }
 }

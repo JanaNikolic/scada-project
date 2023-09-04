@@ -79,7 +79,7 @@ export class TrendingComponent {
   handleSimulationData(data: any){
     // console.log(data);
     for(let tag of this.tags){
-      // if(tag.ioAddress == data.address.toString()) tag.value = Math.round((data.value + Number.EPSILON) * 100) / 100;
+      if(tag.ioAddress == data.ioAddress.toString()) tag.value = Math.round((data.value + Number.EPSILON) * 100) / 100;
     }
   }
 
