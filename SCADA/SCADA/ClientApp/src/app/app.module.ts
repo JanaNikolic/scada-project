@@ -20,7 +20,7 @@ import { AlarmComponent } from './alarm/alarm.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatOptionModule } from '@angular/material/core';
+import {MatNativeDateModule, MatOptionModule} from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -37,6 +37,7 @@ import { InputReportComponent } from './reports/input-report/input-report.compon
 import { TagRecordsComponent } from './reports/tag-records/tag-records.component';
 import { AlarmTimeRangeComponent } from './reports/alarm-time-range/alarm-time-range.component';
 import { RecordsTimeRangeComponent } from './reports/records-time-range/records-time-range.component';
+import {DatePipe} from "@angular/common";
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,6 +78,11 @@ import { RecordsTimeRangeComponent } from './reports/records-time-range/records-
     MatDatepickerModule,
     MatOptionModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent,
       children: [
@@ -92,11 +98,12 @@ import { RecordsTimeRangeComponent } from './reports/records-time-range/records-
       { path: 'alarm-by-range', component: AlarmTimeRangeComponent },
       { path: 'current-values', component: InputReportComponent },
       { path: 'tag-records', component: TagRecordsComponent },
+      { path: 'records-by-range', component: RecordsTimeRangeComponent },
     ]),
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

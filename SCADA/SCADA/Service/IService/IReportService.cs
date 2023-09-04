@@ -5,7 +5,7 @@ namespace SCADA.Service.IService
 {
     public interface IReportService
     {
-        public List<AlarmActivated> getAllAlarmsInTimeRange(TimeRange timeRange);
+        public List<AlarmActivated> getAllAlarmsInTimeRange(DateTime startDate, DateTime endDate);
 
         public List<AlarmActivated> getAllAlarmsByPriority(AlarmPriority priority);
 

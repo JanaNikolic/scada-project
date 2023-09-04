@@ -26,9 +26,9 @@ namespace SCADA.Service
             return this._alarmRepository.GetActivatedAlarmsByPriority(priority);
         }
 
-        public List<AlarmActivated> getAllAlarmsInTimeRange(TimeRange timeRange)
+        public List<AlarmActivated> getAllAlarmsInTimeRange(DateTime startDate, DateTime endDate)
         {
-            return this._alarmRepository.GetActivatedAlarmsByDate(timeRange.StartTime, timeRange.EndTime);
+            return this._alarmRepository.GetActivatedAlarmsByDate(startDate.ToUniversalTime(), endDate.ToUniversalTime());
         }
 
         public List<TagRecord> getAllRecordsByTag(int id)

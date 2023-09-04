@@ -20,9 +20,9 @@ namespace SCADA.Controllers
 
         [IgnoreAntiforgeryToken]
         [HttpGet("alarms-in-range")]
-        public IActionResult GetAlarmsInRangeReport([FromBody] TimeRange timeRange)
+        public IActionResult GetAlarmsInRangeReport([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
-            return Ok(this._reportService.getAllAlarmsInTimeRange(timeRange));
+            return Ok(this._reportService.getAllAlarmsInTimeRange(startDate, endDate));
         }
 
         [IgnoreAntiforgeryToken]
@@ -34,9 +34,9 @@ namespace SCADA.Controllers
 
         [IgnoreAntiforgeryToken]
         [HttpGet("records-in-range")]
-        public IActionResult GetTagRecordsInRangeReport()
+        public IActionResult GetTagRecordsInRangeReport([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
-            return Ok();
+            return Ok(_reportService.getAllRecordsInTimeRange(new TimeRange(startDate.ToUniversalTime(), endDate.ToUniversalTime())));
         }
 
         [IgnoreAntiforgeryToken]
@@ -54,7 +54,7 @@ namespace SCADA.Controllers
         }
 
         [IgnoreAntiforgeryToken]
-        [HttpGet("{id}")]
+        [HttpGet("tag/{id}")]
         public IActionResult GetTagValues(int id)
         {
             return Ok(_reportService.getAllRecordsByTag(id));

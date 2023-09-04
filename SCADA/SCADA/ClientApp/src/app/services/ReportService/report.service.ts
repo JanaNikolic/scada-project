@@ -16,24 +16,15 @@ export class ReportService {
     return this.http.get<ActivatedAlarm[]>(this.baseUrl + "report/alarms/" + priority);
   }
 
-  getAlarmsByRange(start: string, end: string): Observable<ActivatedAlarm[]> {
-    let params = new HttpParams();
+  getAlarmsByRange(startDate: any, endDate: any): Observable<ActivatedAlarm[]> {
+    return this.http.get<ActivatedAlarm[]>(
+      `${this.baseUrl}report/alarms-in-range?startDate=${startDate}&endDate=${endDate}`
+    );
 
-    // Add 'start' and 'end' parameters to the HttpParams
-    params = params.set('start', start); // Convert Date to ISO string
-    params = params.set('end', end); // Convert Date to ISO string
-
-    return this.http.get<ActivatedAlarm[]>(this.baseUrl + "report/alarms-in-range/", {params});
   }
 
-  getRecordsByRange(start: Date, end: Date): Observable<ActivatedAlarm[]> {
-    let params = new HttpParams();
-
-    // Add 'start' and 'end' parameters to the HttpParams
-    params = params.set('start', start.toISOString()); // Convert Date to ISO string
-    params = params.set('end', end.toISOString()); // Convert Date to ISO string
-
-    return this.http.get<ActivatedAlarm[]>(this.baseUrl + "report/records-in-range/", {params});
+  getRecordsByRange(start: any, end: any): Observable<TagRecord[]> {
+    return this.http.get<TagRecord[]>(`${this.baseUrl}report/records-in-range?startDate=${start}&endDate=${end}`);
   }
 
   getAllcurrentInputValues(): Observable<InputList> {
@@ -41,6 +32,6 @@ export class ReportService {
   }
 
   getAllTagValues(id: number): Observable<TagRecord[]> {
-    return this.http.get<TagRecord[]>(this.baseUrl + "report/" + id);
+    return this.http.get<TagRecord[]>(this.baseUrl + "report/tag/" + id);
   }
 }

@@ -2,6 +2,7 @@ import { Alarm } from "./Alarm";
 
 export interface ActivatedAlarm {
     Id: number,
-    TimeStamp: string,
+    Timestamp: string,
     Alarm: Alarm,
+    AlarmId: number,
 }
