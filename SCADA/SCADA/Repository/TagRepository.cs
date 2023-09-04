@@ -3,7 +3,6 @@ using SCADA.Data;
 using SCADA.DTOS;
 using SCADA.Model;
 using SCADA.Repository.IRepository;
-using System.Data.Entity;
 using System.Net;
 
 namespace SCADA.Repository;
@@ -32,7 +31,7 @@ public class TagRepository : ITagRepository
 
     public List<AnalogInput> GetAnalogInputs()
     {
-        return _dataContext.AnalogInputs.ToList();
+        return _dataContext.AnalogInputs.Include(a => a.Alarms).ToList();
     }
 
     public List<AnalogOutput> GetAnalogOutputs()
@@ -164,5 +163,10 @@ public class TagRepository : ITagRepository
             _dataContext.SaveChanges();
         } //TODO
 
+    }
+
+    public Task<TagRecord?> GetTagRecordByAddress(string address)
+    {
+        return _dataContext.TagRecords.Where(x => x.IOAddress == address).OrderByDescending(x=>x.Timestamp).FirstOrDefaultAsync();
     }
 }

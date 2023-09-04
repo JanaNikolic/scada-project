@@ -1,3 +1,6 @@
+using System.Text.Json.Serialization;
+using SCADA.DTOS;
+
 namespace SCADA.Model;
 
 public class Alarm
@@ -6,6 +9,7 @@ public class Alarm
     public double Threshold { get; set; }
     public AlarmType Type { get; set; }
     public AlarmPriority Priority { get; set; }
+    [JsonIgnore]
     public AnalogInput? AnalogInput { get; set; }
     public int TagId { get; set; }
     public DateTime Timestamp { get; set; }
@@ -19,6 +23,13 @@ public class Alarm
         Priority = priority;
         AnalogInput = analogInput;
         TagId = tagId;
+        Timestamp = DateTime.UtcNow;
+    }
+
+    public Alarm(AlarmRequestDTO alarm)
+    {
+        Threshold = alarm.Threshold;
+        TagId = alarm.TagId;
         Timestamp = DateTime.UtcNow;
     }
 

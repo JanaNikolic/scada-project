@@ -60,7 +60,7 @@ public class SimulationService : BackgroundService
             while (true)
             {
                 double val = SimulationDriver.SimulationDriver.ReturnValue(function);
-                await _simulationHub.Clients.All.SendSimulationData(new SimulationDataDTO(address, val));
+                // await _simulationHub.Clients.All.SendSimulationData(new SimulationDataDTO(address, val));
                 if (tag is not null)
                 {
                     if (tag is AnalogInput analog)

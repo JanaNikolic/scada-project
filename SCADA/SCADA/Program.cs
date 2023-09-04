@@ -48,6 +48,7 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
+app.UseWebSockets();
 
 app.MapHub<RTUHubClient>("/hubs/rtu");
 app.MapHub<SimulationHubClient>("/hubs/simulation");

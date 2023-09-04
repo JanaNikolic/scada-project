@@ -72,6 +72,35 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="Alarms" >
+    <th mat-header-cell *matHeaderCellDef>Alarms</th>
+    <td (click)="$event.stopPropagation()"
+      mat-cell
+      *matCellDef="let element" style="display: flex; height: inherit">
+      <div class="add-alarm" *ngIf="element.alarms">
+        <button type="submit" style="border: 0; background: transparent" (click)="addAlarm(element)">
+          <img src="assets/plus.png" width="30" height="30" alt="submit" />
+        </button>
+      </div>
+      <div class="alarm" *ngFor="let alarm of element.alarms" (click)="selectAlarm(alarm)"
+           [ngClass]="{
+                                'low-alarm-priority': alarm.priority === 0 && isAlarmActive(alarm, element),
+                                'medium-alarm-priority': alarm.priority === 1 && isAlarmActive(alarm, element),
+                                'critical-alarm-priority': alarm.priority === 2 && isAlarmActive(alarm, element),
+                                'selected-alarm': isSelectedAlarm && selectedAlarm?.id == alarm.id
+                            }">
+        <div>
+          <p class="info" >{{ alarm.type == 0 ? "Below " : "Above " }}<strong>{{alarm.threshold}}</strong></p>
+        </div>
+        <p
+          class="alarm-priority low-alarm"
+        >
+          {{ alarm.priority === 0 ? "LOW" : alarm.priority === 1 ? "MEDIUM" : "CRITICAL" }}
+        </p>
+      </div>
+    </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr
     mat-row
@@ -93,5 +122,10 @@
   [disabled] = "!selection.hasValue() && !isAllSelected()"
   (click)="deleteTag()">
     Delete Input
+  </button>
+  <button mat-raised-button
+          [disabled] = "!isSelectedAlarm"
+          (click)="deleteAlarm()">
+    Delete Alarm
   </button>
 </div>

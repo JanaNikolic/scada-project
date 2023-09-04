@@ -11,12 +11,14 @@ namespace SCADA.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
+    private readonly ITagService _tagService;
     private readonly ILogger<UserController> _logger;
 
-    public UserController(ILogger<UserController> logger, IUserService userService)
+    public UserController(ILogger<UserController> logger, IUserService userService, ITagService tagService)
     {
         _logger = logger;
         _userService = userService;
+        _tagService = tagService;
     }
     
     [HttpGet("{id}")]
@@ -53,6 +55,7 @@ public class UserController : ControllerBase
             var login = _userService.Login(user.Email, user.Password);
             if (login == null)
                 return BadRequest("Invalid credentials!");
+            _tagService.StartSimulation();
             return Ok(login);
         }catch (Exception ex)
         {

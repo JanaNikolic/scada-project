@@ -14,7 +14,7 @@ public class AlarmActivated
 
     public AlarmActivated(Alarm alarm)
     {
-        Timestamp = DateTime.Now;
+        Timestamp = DateTime.UtcNow;
         Alarm = alarm;
         AlarmId = alarm.Id;
     }

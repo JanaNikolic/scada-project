@@ -1,3 +1,5 @@
+import {Alarm} from "./Alarm";
+
 export interface AnalogInput {
     id: number,
     name: string,
@@ -9,5 +11,6 @@ export interface AnalogInput {
     isScanOn: boolean,
     lowLimit: number,
     highLimit: number,
-    units: string
+    units: string,
+    alarms: Alarm[]
 }

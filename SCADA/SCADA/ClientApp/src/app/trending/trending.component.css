@@ -49,17 +49,3 @@
     background-color: #de421b;
   }
 }
-
-.add-alarm {
-  text-align: left;
-  margin: auto;
-  margin-left: 0;
-}
-
-.selected-alarm{
-  background: rgba(0, 0, 0, 0.36);
-}
-
-.alarm:hover{
-  cursor: pointer;
-}

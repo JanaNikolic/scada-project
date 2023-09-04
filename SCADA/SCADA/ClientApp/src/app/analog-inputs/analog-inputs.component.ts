@@ -7,8 +7,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { InputDialogComponent } from '../dialogs/input-dialog/input-dialog/input-dialog.component';
-import { OutputDialogComponent } from '../dialogs/output-dialog/output-dialog.component';
-import { ValueDialogComponent } from '../dialogs/value-dialog/value-dialog/value-dialog.component';
+import {Alarm} from "../model/Alarm";
+import {AlarmComponent} from "../dialogs/alarm/alarm.component";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -18,13 +19,15 @@ import { ValueDialogComponent } from '../dialogs/value-dialog/value-dialog/value
 })
 export class AnalogInputsComponent {
 
-  displayedColumns: string[] = ['select', 'Id', 'Description', 'Driver', 'I/O Address', 'Scan time', 'Low limit', 'High limit', 'Units', 'Scan'];
+  displayedColumns: string[] = ['select', 'Id', 'Description', 'Driver', 'I/O Address', 'Scan time', 'Low limit', 'High limit', 'Units', 'Scan', 'Alarms'];
   dataSource = new MatTableDataSource<AnalogInput>();
   selection = new SelectionModel<AnalogInput>(true, []);
 
   inputTags: AnalogInput[] = [];
-  constructor(private snackBar: MatSnackBar, private matDialog: MatDialog, private tagService: TagserviceService) { }
+  constructor(private snackBar: MatSnackBar, private matDialog: MatDialog, private tagService: TagserviceService, private router: Router) { }
   @ViewChild('paginator') paginator!: MatPaginator;
+  isSelectedAlarm: boolean = false;
+  selectedAlarm: Alarm | undefined;
 
   ngOnInit() {
 
@@ -60,7 +63,7 @@ export class AnalogInputsComponent {
 
     dialogRef = this.matDialog.open(InputDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(() => {
-      
+
     });
   }
 
@@ -109,4 +112,60 @@ export class AnalogInputsComponent {
     });
   }
 
+  isAlarmActive(alarm: Alarm, input: AnalogInput) : boolean {
+    if(!input.isScanOn) return false
+    if(alarm.type == 0 && input.value < alarm.threshold) return true
+    if(alarm.type == 1 && input.value > alarm.threshold) return true
+    return false
+  }
+
+  addAlarm(element : AnalogInput) {
+    let dialogRef: MatDialogRef<AlarmComponent>;
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = element;
+    dialogConfig.width = "500px";
+
+    dialogRef = this.matDialog.open(AlarmComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((result) => {
+      this.ngOnInit();
+    });
+  }
+
+  deleteAlarm() {
+    if (this.selectedAlarm){
+      console.log(this.selectedAlarm.id);
+      this.tagService.deleteAlarm(this.selectedAlarm.id).subscribe({
+        next: (res) => {
+          this.snackBar.open("Successfully deleted alarm!", 'Close', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+          });
+          this.ngOnInit();
+        },
+        error:(error)=>{
+          this.snackBar.open('Something went wrong!', 'Close', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+          });
+        }
+      });
+    }
+
+  }
+
+  selectAlarm(alarm: Alarm) {
+    console.log("Out: ", this.selectedAlarm);
+    if (this.selectedAlarm?.id == alarm.id) {
+      this.selectedAlarm = undefined;
+      this.isSelectedAlarm = false
+      console.log("1: " , this.selectedAlarm);
+    } else {
+      this.selectedAlarm = alarm;
+      this.isSelectedAlarm = true;
+      console.log("2: " , this.selectedAlarm);
+    }
+  }
 }

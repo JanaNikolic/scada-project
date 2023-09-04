@@ -22,7 +22,7 @@ public class RTU : BackgroundService
                 var tagRepository = scope.ServiceProvider.GetRequiredService<ITagRepository>();
 
                 var inputTags = await tagRepository.GetInputsAsync();
-                for(int i = 5; i < 11; i++)
+                for(int i = 1; i < 20; i++)
                 {
                     double value;
                     Tag? tag = inputTags.FirstOrDefault(t => t.IOAddress == i.ToString());

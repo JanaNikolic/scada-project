@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
   isExpanded = false;
+  isLoggedIn = false;
 
   collapse() {
     this.isExpanded = false;
@@ -14,5 +15,19 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  loggedIn() {
+    const user = localStorage.getItem("user");
+    this.isLoggedIn = !!user;
+    return !!user;
+  }
+
+  admin() {
+    return localStorage.getItem("user") === "ADMIN" && this.loggedIn();
+  }
+
+  logout() {
+    localStorage.removeItem("user")
   }
 }
