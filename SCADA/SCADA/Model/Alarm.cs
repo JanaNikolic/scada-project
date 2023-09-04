@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 using SCADA.DTOS;
 
 namespace SCADA.Model;
@@ -10,6 +11,7 @@ public class Alarm
     public AlarmType Type { get; set; }
     public AlarmPriority Priority { get; set; }
     [JsonIgnore]
+    [XmlIgnore]
     public AnalogInput? AnalogInput { get; set; }
     public int TagId { get; set; }
     public DateTime Timestamp { get; set; }

@@ -16,6 +16,11 @@ public class AlarmService : IAlarmService
         _tagRepository = tagRepository;
     }
 
+    public List<Alarm> GetAll()
+    {
+        return _alarmRepository.GetAllAlarms();
+    }
+
     public Alarm GetById(int alarmId)
     {
         return _alarmRepository.GetById(alarmId);

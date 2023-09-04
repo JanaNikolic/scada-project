@@ -5,6 +5,7 @@ namespace SCADA.Service.IService;
 
 public interface IAlarmService
 {
+    public List<Alarm> GetAll();
     public Alarm GetById(int alarmId);
     List<AlarmResponseDTO> GetAllAlarms();
     List<AlarmActivated> GetAllActivatedAlarms();

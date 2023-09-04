@@ -5,6 +5,7 @@ namespace SCADA.Service.IService
 {
     public interface ITagService
     {
+        public List<Tag> GetTags();
         public InputListDTO GetInputTags();
         public OutputListDTO GetOutputTags();
         public void AddTag(TagDTO tagDTO);

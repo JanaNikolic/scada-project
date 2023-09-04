@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-16"?>
+<tags>
+  <AnalogInput>
+    <AnalogInput xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <Id>1</Id>
+      <Name>Struja</Name>
+      <IOAddress>5</IOAddress>
+      <Description>Tag za merelje struje</Description>
+      <Value>43.06</Value>
+      <IsDeleted>false</IsDeleted>
+      <Driver>Struja</Driver>
+      <ScanTime>5</ScanTime>
+      <IsScanOn>true</IsScanOn>
+      <LowLimit>0</LowLimit>
+      <HighLimit>50</HighLimit>
+      <Units>mA</Units>
+    </AnalogInput>
+    <AnalogInput>
+      <AnalogInput xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>2</Id>
+        <Name>Napon</Name>
+        <IOAddress>2</IOAddress>
+        <Description>Tag za merelje napona</Description>
+        <Value>16.02</Value>
+        <IsDeleted>false</IsDeleted>
+        <Driver>Napon</Driver>
+        <ScanTime>2</ScanTime>
+        <IsScanOn>true</IsScanOn>
+        <LowLimit>0</LowLimit>
+        <HighLimit>20</HighLimit>
+        <Units>V</Units>
+      </AnalogInput>
+      <AnalogInput>
+        <AnalogInput xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+          <Id>3</Id>
+          <Name>Snaga</Name>
+          <IOAddress>4</IOAddress>
+          <Description>Tag za merelje snage</Description>
+          <Value>34.28</Value>
+          <IsDeleted>false</IsDeleted>
+          <Driver>Snaga</Driver>
+          <ScanTime>2</ScanTime>
+          <IsScanOn>true</IsScanOn>
+          <LowLimit>0</LowLimit>
+          <HighLimit>50</HighLimit>
+          <Units>KW</Units>
+        </AnalogInput>
+        <DigitalInput>
+          <DigitalInput xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <Id>4</Id>
+            <Name>D1</Name>
+            <IOAddress>1</IOAddress>
+            <Description>Opis</Description>
+            <Value>0</Value>
+            <IsDeleted>false</IsDeleted>
+            <Driver />
+            <ScanTime>3</ScanTime>
+            <IsScanOn>true</IsScanOn>
+          </DigitalInput>
+          <DigitalInput>
+            <DigitalInput xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+              <Id>6</Id>
+              <Name>D3</Name>
+              <IOAddress>8</IOAddress>
+              <Description>Opis</Description>
+              <Value>0</Value>
+              <IsDeleted>false</IsDeleted>
+              <Driver />
+              <ScanTime>2</ScanTime>
+              <IsScanOn>true</IsScanOn>
+            </DigitalInput>
+          </DigitalInput>
+        </DigitalInput>
+      </AnalogInput>
+    </AnalogInput>
+  </AnalogInput>
+</tags>

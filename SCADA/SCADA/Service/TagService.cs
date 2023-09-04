@@ -136,6 +136,11 @@ namespace SCADA.Service
             _tagRepository.AddOutputValue(dto);
         }
 
+        public List<Tag> GetTags()
+        {
+            return _tagRepository.GetAll();
+        }
+
         public InputListDTO GetInputTags()
         {
             InputListDTO inputsDTO = new InputListDTO();
