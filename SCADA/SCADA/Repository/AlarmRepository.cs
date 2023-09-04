@@ -63,7 +63,7 @@ public class AlarmRepository : IAlarmRepository
         return _dataContext.AlarmsActivated.Include(a => a.Alarm).Where(a => a.Timestamp >=  start && a.Timestamp <= end).ToList();
     }
 
-    public List<AlarmActivated> GetActivatedAlarmsByPriority(Alarm.AlarmPriority priority)
+    public List<AlarmActivated> GetActivatedAlarmsByPriority(AlarmPriority priority)
     {
         return _dataContext.AlarmsActivated.Include(a=>a.Alarm).Where(a => a.Alarm.Priority == priority).ToList();
     }

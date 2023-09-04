@@ -10,6 +10,6 @@ public interface IAlarmRepository
     public void AddAlarm(Alarm alarm);
     public void DeleteAlarm(Alarm alarm);
     public List<AlarmActivated> GetActivatedAlarmsByDate(DateTime start, DateTime end);
-    public List<AlarmActivated> GetActivatedAlarmsByPriority(Alarm.AlarmPriority priority);
+    public List<AlarmActivated> GetActivatedAlarmsByPriority(AlarmPriority priority);
     public void AddActivatedAlarm(AlarmActivated alarm);
 }

@@ -32,20 +32,43 @@
               >Add User</a
             >
           </li>
+          <li class="nav-item" >
+            <button class="nav-link text-dark" [matMenuTriggerFor]="menu"
+                    >Reports</button>
+          </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/trending']" *ngIf="isLoggedIn && !admin()"
-            >Trending</a
-            >
+            >Trending</a>
+            <mat-menu #menu="matMenu">
+              <a mat-menu-item [routerLink]="['/alarm-by-range']">
+                <a>Alarms within time range</a>
+              </a>
+              <a mat-menu-item [routerLink]="['/alarm-by-priority']">
+                <a>Alarms by priority</a>
+              </a>
+              <a mat-menu-item [routerLink]="['/records-by-range']">
+                <a>Tag values by time range</a>
+              </a>
+              <a mat-menu-item [routerLink]="['/current-values']">
+                <a>Last values of Input tags</a>
+              </a>
+              <a mat-menu-item [routerLink]="['/tag-records']">
+                <a>All values of specific tag</a>
+              </a>
+            </mat-menu>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/reports']" *ngIf="isLoggedIn && !admin()"
             >Reports</a
             >
           </li>
+          <li class="nav-item">
+            <button class="nav-link text-dark"
+                    >Alarm</button>
+          </li>
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="loggedIn()">
             <a class="nav-link text-dark" [routerLink]="['/login']" (click)="logout()"
-            >Log out</a
-            >
+            >Log out</a>
           </li>
         </ul>
       </div>
