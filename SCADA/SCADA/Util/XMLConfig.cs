@@ -65,20 +65,6 @@ public class XMLConfig
             serializer.Serialize(writer, alarms);
             Console.WriteLine("SERIALIZED ALARMS");
             
-            using (var xmlWriter = XmlWriter.Create(writer)) //using (var xmlWriter = XmlWriter.Create(writer, settings))
-            {
-                // xmlWriter.WriteStartDocument();
-                // xmlWriter.WriteStartElement("alarms");
-                //
-                // foreach (var alarm in alarms)
-                // {
-                //     serializer.Serialize(xmlWriter, alarm);
-                // }
-                //
-                // xmlWriter.WriteEndElement();
-                // xmlWriter.WriteEndDocument();
-            }
-
             return writer.ToString();
         }
     }
@@ -93,38 +79,6 @@ public class XMLConfig
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Tag>));
             var tagsList = (List<Tag>)serializer.Deserialize(reader);
-
-            // lock (locker)
-            // {
-            //     if (tagsList != null)
-            //     {
-            //         tags = tagsList.ToDictionary(tag => tag.TagName);
-            //     }
-            //
-            //     foreach (Tag tag in tags.Values)
-            //     {
-            //         if (tag is AnalogInput analog)
-            //         {
-            //             InputTag inputTag = (InputTag)tag;
-            //             if (inputTag.Driver is SimulationDriver)
-            //             {
-            //                     
-            //                 addresses = ((SimulationDriver)inputTag.Driver).Addresses;
-            //                 values = ((SimulationDriver)inputTag.Driver).TagValues;
-            //                 ((InputTag)tag).Driver = simulationDriver;
-            //             }
-            //             else
-            //             {
-            //                 InputTag inputTag1 = (InputTag)tag;
-            //                     
-            //                 addresses = ((RealTimeDriver)inputTag1.Driver).addresses;
-            //                 values = ((RealTimeDriver)inputTag1.Driver).tagValues;
-            //                 ((InputTag)tag).Driver = rtu;
-            //             }
-            //         }
-            //
-            //     }
-            // }
         }
     }
 }

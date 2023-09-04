@@ -6,7 +6,7 @@
       <Name>Struja</Name>
       <IOAddress>5</IOAddress>
       <Description>Tag za merelje struje</Description>
-      <Value>83</Value>
+      <Value>35</Value>
       <IsDeleted>false</IsDeleted>
       <Driver>Simulation</Driver>
       <ScanTime>5</ScanTime>
@@ -21,7 +21,7 @@
         <Name>Napon</Name>
         <IOAddress>2</IOAddress>
         <Description>Tag za merelje napona</Description>
-        <Value>19.16</Value>
+        <Value>5.75</Value>
         <IsDeleted>false</IsDeleted>
         <Driver>RTU</Driver>
         <ScanTime>2</ScanTime>
@@ -36,7 +36,7 @@
           <Name>Snaga</Name>
           <IOAddress>4</IOAddress>
           <Description>Tag za merelje snage</Description>
-          <Value>29.81</Value>
+          <Value>16.86</Value>
           <IsDeleted>false</IsDeleted>
           <Driver>RTU</Driver>
           <ScanTime>2</ScanTime>

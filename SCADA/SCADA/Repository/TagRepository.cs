@@ -172,15 +172,16 @@ public class TagRepository : ITagRepository
 
     public async Task<List<Tag>> GetSimulationDriverTags()
     {
-        var analog = await _dataContext.AnalogInputs.Where(a => a.Driver == "Simulation").ToListAsync();
+        var analog = await _dataContext.AnalogInputs.Include(tag => tag.Alarms).Where(a => a.Driver == "Simulation").ToListAsync();
         var digital = await _dataContext.DigitalInputs.Where(a => a.Driver == "Simulation").ToListAsync();
         return analog.Cast<Tag>().Concat(digital.Cast<Tag>()).ToList();
     }
 
     public async Task<List<Tag>> GetRTUInputsAsync()
     {
-        var analog = await _dataContext.AnalogInputs.Where(a => a.Driver == "RTU").ToListAsync();
-        var digital = await _dataContext.DigitalInputs.Where(a => a.Driver == "RTU").ToListAsync();
-        return analog.Cast<Tag>().Concat(digital.Cast<Tag>()).ToList();
+        var analogTags = await _dataContext.AnalogInputs.Include(tag => tag.Alarms).Where(a => a.Driver == "RTU").ToListAsync();
+        var digitalTags = await _dataContext.DigitalInputs.Where(a => a.Driver == "RTU").ToListAsync();
+    
+        return analogTags.Cast<Tag>().Union(digitalTags.Cast<Tag>()).ToList();
     }
 }

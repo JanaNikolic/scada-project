@@ -3,6 +3,7 @@ using SCADA.Hubs;
 using SCADA.Hubs.IHubs;
 using SCADA.Model;
 using SCADA.Repository.IRepository;
+using SCADA.Service.IService;
 
 namespace SCADA.Service;
 
@@ -25,6 +26,7 @@ public class RTU : BackgroundService
             using(var scope = _serviceProvider.CreateScope())
             {
                 var tagRepository = scope.ServiceProvider.GetRequiredService<ITagRepository>();
+                var alarmService = scope.ServiceProvider.GetRequiredService<IAlarmService>();
 
                 var inputTags = await tagRepository.GetRTUInputsAsync();
                 foreach (var tag in inputTags)
@@ -47,6 +49,10 @@ public class RTU : BackgroundService
                     tagRepository.UpdateTag(tag);
                     tagRepository.AddTagRecord(tagRecord);
                     await _rtuHub.Clients.All.SendRTUData(tagRecord);
+                    if(tag is AnalogInput analog)
+                    {
+                        CheckIfAlarmExists(tagRecord, analog, alarmService);
+                    }
                 }
 
             }
@@ -54,5 +60,15 @@ public class RTU : BackgroundService
             await Task.Delay(10000, stoppingToken);
         }
     }
-
+    private void CheckIfAlarmExists(TagRecord value, AnalogInput analog, IAlarmService alarmService)
+    {
+        foreach(var alarm in analog.Alarms)
+        {
+            Alarm a = alarmService.GetById(alarm.Id);
+            if ((alarm.Type == Alarm.AlarmType.ABOVE && alarm.Threshold >= value.Value) || (alarm.Type == Alarm.AlarmType.BELOW && alarm.Threshold <= value.Value))
+            {
+                alarmService.AddAlarmValue(new AlarmActivated(a), analog);
+            }
+        }
+    }
 }

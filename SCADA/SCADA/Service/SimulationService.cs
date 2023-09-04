@@ -4,6 +4,7 @@ using SCADA.Hubs;
 using SCADA.Hubs.IHubs;
 using SCADA.Model;
 using SCADA.Repository.IRepository;
+using SCADA.Service.IService;
 
 namespace SCADA.Service;
 
@@ -63,6 +64,7 @@ public class SimulationService : BackgroundService
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var tagRepository = scope.ServiceProvider.GetRequiredService<ITagRepository>();
+                    var alarmService = scope.ServiceProvider.GetRequiredService<IAlarmService>();
                     
                     double val = SimulationDriver.SimulationDriver.ReturnValue(function);
                     
@@ -76,7 +78,9 @@ public class SimulationService : BackgroundService
                             tagRepository.AddTagRecord(tagRecord);
                             await _simulationHub.Clients.All.SendSimulationData(tagRecord);
                             Thread.Sleep(TimeSpan.FromSeconds(analog.ScanTime));
-
+                            
+                            CheckIfAlarmExists(tagRecord, analog, alarmService);
+                            
                         }
                         else if (tag is DigitalInput digital)
                         {
@@ -106,5 +110,17 @@ public class SimulationService : BackgroundService
         });
         thread.Start();
         _scanTimers[address] = thread;
+    }
+    
+    private void CheckIfAlarmExists(TagRecord value, AnalogInput analog, IAlarmService alarmService)
+    {
+        foreach(var alarm in analog.Alarms)
+        {
+            Alarm a = alarmService.GetById(alarm.Id);
+            if ((alarm.Type == Alarm.AlarmType.ABOVE && alarm.Threshold >= value.Value) || (alarm.Type == Alarm.AlarmType.BELOW && alarm.Threshold <= value.Value))
+            {
+                alarmService.AddAlarmValue(new AlarmActivated(a), analog);
+            }
+        }
     }
 }
