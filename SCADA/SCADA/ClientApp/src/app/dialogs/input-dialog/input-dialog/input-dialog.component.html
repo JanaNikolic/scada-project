@@ -1,0 +1,82 @@
+<h1 mat-dialog-title style="font-size: 20px">Create tag</h1>
+<mat-dialog-content>
+    <form [formGroup]="inputForm">
+        <mat-select style="width: 240px; margin-left: 10px" formControlName="outputType" placeholder="Type"
+            required>
+            <mat-option [value]="'DIGITAL'">Digital</mat-option>
+            <mat-option [value]="'ANALOG'">Analog</mat-option>
+        </mat-select>
+
+        <mat-form-field style="width: 250px">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" type="text" required />
+            <mat-error>
+                Name is required.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 250px">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description" type="text" required />
+            <mat-error>
+                Description is required.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 250px">
+            <mat-label>I/O Address</mat-label>
+            <input matInput formControlName="ioAddress" type="text" required />
+            <mat-error>
+                I/O Address is required.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 250px">
+            <mat-label>Driver</mat-label>
+            <input matInput formControlName="driver" type="text" required />
+            <mat-error>
+                Driver is required.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 250px">
+            <mat-label>Scan time</mat-label>
+            <input matInput formControlName="scanTime" type="number" required />
+            <mat-error>
+                Initial Value is required.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 250px">
+            <mat-checkbox  formControlName="isScanOn">
+                Scanning
+                <input matInput>
+            </mat-checkbox>
+            <mat-error>
+                Initial Value is required.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 250px">
+            <mat-label>Low limit</mat-label>
+            <input matInput formControlName="lowLimit" type="number" required />
+            <mat-error>
+                Low limit is required.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 250px">
+            <mat-label>High limit</mat-label>
+            <input matInput formControlName="highLimit" type="number" required />
+            <mat-error>
+                High limit is required.
+            </mat-error>
+        </mat-form-field>
+        <mat-select style="width: 240px; margin-left: 10px" formControlName="unit" placeholder="Unit"
+            required>
+            <mat-option [value]="'SINE'">Sine</mat-option>
+            <mat-option [value]="'COSINE'">Cosine</mat-option>
+            <mat-option [value]="'PASCAL'">Pascal</mat-option>
+            <mat-option [value]="'CELSIUS'">Celsius</mat-option>
+        </mat-select>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button type="submit" [disabled]="!isFormValid()" (click)="addTag()">
+        Submit
+    </button>
+    <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

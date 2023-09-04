@@ -1,0 +1,51 @@
+.alarm{
+  padding: 0;
+  min-width: 85px;
+  margin: 0 5px;
+  text-align: center;
+  border: 2px solid gray;
+}
+.alarm-threshold{
+  font-size: 26px;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px 0 5px;
+}
+.alarm-priority{
+  text-align: center;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+.info{
+  font-size: 18px;
+  margin-left: 2px;
+}
+.low-alarm-priority{
+  background-color: #ffff00;
+}
+.medium-alarm-priority{
+  background-color: #ff7700;
+}
+.critical-alarm-priority{
+  background-color:#de421b;
+  animation: blinkingBackground 1s infinite;
+}
+.medium-alarm-threshold{
+  border: 3px solid #ff7700;
+}
+.critical-alarm-threshold{
+  border: 3px solid #de421b;
+}
+@keyframes blinkingBackground {
+  0% {
+    background-color: #ddd;
+  }
+  50% {
+    background-color: #de421b;
+  }
+}

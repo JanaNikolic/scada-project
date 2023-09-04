@@ -1,0 +1,131 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox
+        (change)="$event ? masterToggle() : null"
+        [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()"
+      >
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox
+        color="secondary"
+        (click)="$event.stopPropagation()"
+        (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)"
+      >
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Id">
+    <th mat-header-cell *matHeaderCellDef>Id</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Description">
+    <th mat-header-cell *matHeaderCellDef>Description</th>
+    <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Driver">
+    <th mat-header-cell *matHeaderCellDef>Driver</th>
+    <td mat-cell *matCellDef="let element">{{ element.driver }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="I/O Address">
+    <th mat-header-cell *matHeaderCellDef>I/O Address</th>
+    <td mat-cell *matCellDef="let element">{{ element.ioAddress }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Scan time">
+    <th mat-header-cell *matHeaderCellDef>Scan time</th>
+    <td mat-cell *matCellDef="let element">{{ element.scanTime }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Low limit">
+    <th mat-header-cell *matHeaderCellDef>Low limit</th>
+    <td mat-cell *matCellDef="let element">{{ element.lowLimit }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="High limit">
+    <th mat-header-cell *matHeaderCellDef>High limit</th>
+    <td mat-cell *matCellDef="let element">{{ element.highLimit }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Units">
+    <th mat-header-cell *matHeaderCellDef>Units</th>
+    <td mat-cell *matCellDef="let element">{{ element.units }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Scan">
+    <th mat-header-cell *matHeaderCellDef>Scan</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-slide-toggle
+        [checked]="element.isScanOn"
+        color="primary"
+        (click)="$event.stopPropagation()"
+        (change)="toggleScan(element.id)"
+      ></mat-slide-toggle>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Alarms" >
+    <th mat-header-cell *matHeaderCellDef>Alarms</th>
+    <td (click)="$event.stopPropagation()"
+      mat-cell
+      *matCellDef="let element" style="display: flex; min-height: 56px">
+      <div class="add-alarm" *ngIf="element.alarms">
+        <button type="submit" style="border: 0; background: transparent" (click)="addAlarm(element)">
+          <img src="assets/plus.png" width="30" height="30" alt="submit" />
+        </button>
+      </div>
+      <div class="alarm" *ngFor="let alarm of element.alarms" (click)="selectAlarm(alarm)"
+           [ngClass]="{
+                                'low-alarm-priority': alarm.priority === 0 && isAlarmActive(alarm, element),
+                                'medium-alarm-priority': alarm.priority === 1 && isAlarmActive(alarm, element),
+                                'critical-alarm-priority': alarm.priority === 2 && isAlarmActive(alarm, element),
+                                'selected-alarm': isSelectedAlarm && selectedAlarm?.id == alarm.id
+                            }">
+        <div>
+          <p class="info" >{{ alarm.type == 0 ? "Below " : "Above " }}<strong>{{alarm.threshold}}</strong></p>
+        </div>
+        <p
+          class="alarm-priority low-alarm"
+        >
+          {{ alarm.priority === 0 ? "LOW" : alarm.priority === 1 ? "MEDIUM" : "CRITICAL" }}
+        </p>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="selection.toggle(row)"
+  ></tr>
+</table>
+<mat-paginator
+  class="mat-elevation-z8"
+  #paginator
+  [pageSizeOptions]="[5, 10]"
+  showFirstLastButtons
+></mat-paginator>
+<div>
+  <button mat-raised-button (click)="openForm()">
+    Add Input
+  </button>
+  <button mat-raised-button
+  [disabled] = "!selection.hasValue() && !isAllSelected()"
+  (click)="deleteTag()">
+    Delete Input
+  </button>
+  <button mat-raised-button
+          [disabled] = "!isSelectedAlarm"
+          (click)="deleteAlarm()">
+    Delete Alarm
+  </button>
+</div>

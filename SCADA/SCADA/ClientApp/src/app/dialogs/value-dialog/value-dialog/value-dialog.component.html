@@ -1,0 +1,18 @@
+<mat-dialog-content>
+<h1 mat-dialog-title style="font-size: 20sp">Edit tag value</h1>
+<form [formGroup]="valueForm">
+    <mat-form-field style="width: 250px">
+        <mat-label>Value</mat-label>
+        <input matInput formControlName="value" type="number" required />
+        <mat-error>
+        Value is required.
+        </mat-error>
+    </mat-form-field>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button type="submit" [disabled]="!isFormValid()" (click)="changeValue()">
+        Submit
+    </button>
+    <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>
