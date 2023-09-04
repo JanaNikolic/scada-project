@@ -32,7 +32,7 @@
               >Add User</a
             >
           </li>
-          <li class="nav-item" >
+          <li class="nav-item" *ngIf="isLoggedIn && !admin()">
             <button class="nav-link text-dark" [matMenuTriggerFor]="menu"
                     >Reports</button>
           </li>
@@ -56,15 +56,6 @@
                 <a>All values of specific tag</a>
               </a>
             </mat-menu>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/reports']" *ngIf="isLoggedIn && !admin()"
-            >Reports</a
-            >
-          </li>
-          <li class="nav-item">
-            <button class="nav-link text-dark"
-                    >Alarm</button>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="loggedIn()">
             <a class="nav-link text-dark" [routerLink]="['/login']" (click)="logout()"

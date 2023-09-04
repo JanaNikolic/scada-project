@@ -6,7 +6,7 @@
       <Name>Struja</Name>
       <IOAddress>5</IOAddress>
       <Description>Tag za merelje struje</Description>
-      <Value>35</Value>
+      <Value>71</Value>
       <IsDeleted>false</IsDeleted>
       <Driver>Simulation</Driver>
       <ScanTime>5</ScanTime>
@@ -21,11 +21,11 @@
         <Name>Napon</Name>
         <IOAddress>2</IOAddress>
         <Description>Tag za merelje napona</Description>
-        <Value>5.75</Value>
+        <Value>6.41</Value>
         <IsDeleted>false</IsDeleted>
         <Driver>RTU</Driver>
         <ScanTime>2</ScanTime>
-        <IsScanOn>true</IsScanOn>
+        <IsScanOn>false</IsScanOn>
         <LowLimit>0</LowLimit>
         <HighLimit>20</HighLimit>
         <Units>V</Units>
@@ -36,7 +36,7 @@
           <Name>Snaga</Name>
           <IOAddress>4</IOAddress>
           <Description>Tag za merelje snage</Description>
-          <Value>16.86</Value>
+          <Value>15.54</Value>
           <IsDeleted>false</IsDeleted>
           <Driver>RTU</Driver>
           <ScanTime>2</ScanTime>
@@ -69,6 +69,20 @@
               <ScanTime>3</ScanTime>
               <IsScanOn>true</IsScanOn>
             </DigitalInput>
+            <AnalogOutput>
+              <AnalogOutput xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                <Id>9</Id>
+                <Name>efnefnq</Name>
+                <IOAddress>88</IOAddress>
+                <Description>bejbfej</Description>
+                <Value>80</Value>
+                <IsDeleted>false</IsDeleted>
+                <InitialValue>0</InitialValue>
+                <LowLimit>10</LowLimit>
+                <HighLimit>100</HighLimit>
+                <Units>COSINE</Units>
+              </AnalogOutput>
+            </AnalogOutput>
           </DigitalInput>
         </DigitalInput>
       </AnalogInput>

@@ -31,16 +31,18 @@ public class RTU : BackgroundService
                 var inputTags = await tagRepository.GetRTUInputsAsync();
                 foreach (var tag in inputTags)
                 {
-                    double value;
+                    double value = 0;
                     if(tag == null) { continue; }
                     
                     if(tag is AnalogInput analogInput)
                     {
+                        if (!analogInput.IsScanOn) continue;
                         value = analogInput.LowLimit + (random.NextDouble() * (analogInput.HighLimit - analogInput.LowLimit));
 						value = Math.Round(value, 2, MidpointRounding.AwayFromZero);
                     }
-                    else
+                    else if(tag is DigitalInput digitalInput)
                     {
+                        if (!digitalInput.IsScanOn) continue;
                         value = random.NextInt64(0, 2);
                         value = Math.Round(value, 2, MidpointRounding.AwayFromZero);
                     }

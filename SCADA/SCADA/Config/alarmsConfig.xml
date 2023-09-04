@@ -9,6 +9,22 @@
     <Timestamp>2023-08-31T17:45:53.083041Z</Timestamp>
   </Alarm>
   <Alarm>
+    <Id>3</Id>
+    <Threshold>10</Threshold>
+    <Type>ABOVE</Type>
+    <Priority>Level3</Priority>
+    <TagId>2</TagId>
+    <Timestamp>2023-08-31T17:45:13.198154Z</Timestamp>
+  </Alarm>
+  <Alarm>
+    <Id>1</Id>
+    <Threshold>10</Threshold>
+    <Type>ABOVE</Type>
+    <Priority>Level3</Priority>
+    <TagId>1</TagId>
+    <Timestamp>2023-08-31T17:45:13.072116Z</Timestamp>
+  </Alarm>
+  <Alarm>
     <Id>2</Id>
     <Threshold>20</Threshold>
     <Type>ABOVE</Type>
@@ -31,21 +47,5 @@
     <Priority>Level2</Priority>
     <TagId>1</TagId>
     <Timestamp>2023-08-31T17:45:53.077188Z</Timestamp>
-  </Alarm>
-  <Alarm>
-    <Id>1</Id>
-    <Threshold>10</Threshold>
-    <Type>ABOVE</Type>
-    <Priority>Level3</Priority>
-    <TagId>1</TagId>
-    <Timestamp>2023-08-31T17:45:13.072116Z</Timestamp>
-  </Alarm>
-  <Alarm>
-    <Id>3</Id>
-    <Threshold>10</Threshold>
-    <Type>ABOVE</Type>
-    <Priority>Level3</Priority>
-    <TagId>2</TagId>
-    <Timestamp>2023-08-31T17:45:13.198154Z</Timestamp>
   </Alarm>
 </ArrayOfAlarm>

@@ -79,9 +79,9 @@ public class AlarmService : IAlarmService
         else if (alarm.Type == "ABOVE") a.Type = Alarm.AlarmType.ABOVE;
         else throw new Exception("Bad request");
         
-        if (alarm.Priority == "Level1") a.Priority = Alarm.AlarmPriority.Level1;
-        else if (alarm.Priority == "Level2") a.Priority = Alarm.AlarmPriority.Level2;
-        else if (alarm.Priority == "Level3") a.Priority = Alarm.AlarmPriority.Level3;
+        if (alarm.Priority == "Level1") a.Priority = AlarmPriority.Level1;
+        else if (alarm.Priority == "Level2") a.Priority = AlarmPriority.Level2;
+        else if (alarm.Priority == "Level3") a.Priority = AlarmPriority.Level3;
         else throw new Exception("Bad request");
         
         a.AnalogInput = (AnalogInput)tag;

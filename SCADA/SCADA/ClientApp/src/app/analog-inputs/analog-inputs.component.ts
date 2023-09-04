@@ -67,7 +67,7 @@ export class AnalogInputsComponent {
 
     dialogRef = this.matDialog.open(InputDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(() => {
-
+      this.ngOnInit();
     });
   }
 

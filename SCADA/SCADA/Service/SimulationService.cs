@@ -72,6 +72,7 @@ public class SimulationService : BackgroundService
                     {
                         if (tag is AnalogInput analog)
                         {
+                            if (!analog.IsScanOn) continue;
                             var tagRecord = new TagRecord(tag, val, tag.IOAddress);
                             tag.Value = val;
                             tagRepository.UpdateTag(tag);
@@ -84,6 +85,7 @@ public class SimulationService : BackgroundService
                         }
                         else if (tag is DigitalInput digital)
                         {
+                            if (!digital.IsScanOn) continue;
                             val = (int)Math.Round(val % 2, 2, MidpointRounding.AwayFromZero);
                             if (val < 0)
                             {
